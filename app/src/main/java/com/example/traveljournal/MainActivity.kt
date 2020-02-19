@@ -70,6 +70,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
         buttonCreateJournal.setOnClickListener(this)
+        buttonMap.setOnClickListener(this)
+        buttonTopLocations.setOnClickListener(this)
+        buttonHelp.setOnClickListener(this)
+
         linearLayout.addView(buttonCreateJournal)
 
         linearLayout.addView(buttonTopLocations)
@@ -85,6 +89,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 // putExtra(EXTRA_MESSAGE, "HELLO")
                 }
                 startActivity(intent)
+            }
+            R.id.btnMap -> {
+                val intentMap = Intent(this, MapActivity::class.java).apply {
+                    // putExtra(EXTRA_MESSAGE, "HELLO")
+                }
+                startActivity(intentMap)
             }
             else -> {
 
