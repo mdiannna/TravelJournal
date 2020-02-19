@@ -121,6 +121,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 startActivity(intentMap)
             }
+            R.id.btnTopLocations -> {
+                val intentMap = Intent(this, TopLocationsActivity::class.java).apply {
+                    // putExtra(EXTRA_MESSAGE, "HELLO")
+                }
+                startActivity(intentMap)
+            }
             else -> {
 
             }
