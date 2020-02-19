@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="btnCreateJournal" type="id"/>
+    <item name="btnJournal1" type="id"/>
     <item name="btnTopLocations" type="id"/>
     <item name="btnMap" type="id"/>
     <item name="btnHelp" type="id"/>

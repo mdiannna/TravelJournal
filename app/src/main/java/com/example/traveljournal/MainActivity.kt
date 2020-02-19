@@ -35,6 +35,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             id = R.id.btnCreateJournal
         }
 
+        var buttonJournal1 = Button(this)
+        buttonJournal1.apply {
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT)
+            text = "Louvre"
+            setAllCaps(false)
+            textSize = 20f
+            id = R.id.btnJournal1
+        }
+
         // TODO: photo
         var buttonTopLocations = Button(this)
         buttonTopLocations.apply {
@@ -62,7 +72,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buttonHelp.apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
-            text = "Help"
+            text = "About"
             setAllCaps(false)
             textSize = 20f
             id = R.id.btnHelp
@@ -70,11 +80,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
         buttonCreateJournal.setOnClickListener(this)
+        buttonJournal1.setOnClickListener(this)
         buttonMap.setOnClickListener(this)
         buttonTopLocations.setOnClickListener(this)
         buttonHelp.setOnClickListener(this)
 
         linearLayout.addView(buttonCreateJournal)
+        // in the future will be more buttons with journals
+        linearLayout.addView(buttonJournal1)
 
         linearLayout.addView(buttonTopLocations)
         linearLayout.addView(buttonMap)
@@ -87,6 +100,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btnCreateJournal -> {
                 val intent = Intent(this, CreateJournalActivity::class.java).apply {
                 // putExtra(EXTRA_MESSAGE, "HELLO")
+                }
+                startActivity(intent)
+            }
+            R.id.btnJournal1 -> {
+                val intent = Intent(this, JournalActivity::class.java).apply {
+                    // putExtra(EXTRA_MESSAGE, "HELLO")
                 }
                 startActivity(intent)
             }
