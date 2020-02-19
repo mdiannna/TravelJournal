@@ -38,16 +38,17 @@ class TopLocationsActivity : AppCompatActivity() {
         var loc2 = Location(2, "Location2", "Moldova", "str.Lalla",
             "THis is a very beautiful location", 23, 54, 4.2F,"no image"
         )
-        var loc3 = Location(3, "Location3", "Moldova", "str.Lalla",
+        var loc3 = Location(3, "White house", "USA", "str.Lalla",
             "THis is a very beautiful location", 23, 54, 4.2F,"no image"
         )
-        var loc4 = Location(4, "Location4", "Moldova", "str.Lalla",
+        var loc4 = Location(4, "Orheiul Vechi", "Moldova", "str.Lalla",
             "THis is a very beautiful location", 23, 54, 4.2F,"no image"
         )
-        var loc5 = Location(5, "Location5", "Moldova", "str.Lalla",
+        var loc5 = Location(5, "Louvre", "Paris", "str.Lalla",
             "THis is a very beautiful location", 23, 54, 4.2F,"no image"
         )
 
+        locationList = ArrayList<Location>(10);
         locationList.add(loc1)
         locationList.add(loc2)
         locationList.add(loc3)
