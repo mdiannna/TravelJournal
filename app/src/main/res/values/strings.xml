@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TravelJournal</string>
+    <string name="about">TravelJournal is an android app that helps travellers create
+    a travel journal. You add a photo, then based on your location we find informations
+    about the place you are visiting. Then you have a Travel Journal with map of locations,
+    photos and informations about the locations that you can print and share. </string>
+
 </resources>

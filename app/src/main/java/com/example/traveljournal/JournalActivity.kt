@@ -1,13 +1,17 @@
 package com.example.traveljournal
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_journal.*
+import kotlinx.android.synthetic.main.activity_main.*
 
-class JournalActivity : AppCompatActivity() {
+class JournalActivity : AppCompatActivity(), View.OnClickListener  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,5 +25,31 @@ class JournalActivity : AppCompatActivity() {
                     "exhibited over am area of 72735 square meters. In 2019, the Louvre received" +
                     " 9.6 million visitors."
         }
+
+        // TODO: photo
+        var buttonPrintJournal = Button(this)
+        buttonPrintJournal.apply {
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT)
+            text = "Print journal"
+            setAllCaps(false)
+            textSize = 20f
+            id = R.id.btnPrintJournal
+        }
+
+        buttonPrintJournal.setOnClickListener(this)
+        journalLayout.addView(buttonPrintJournal)
+
     }
+
+    override fun onClick(v:View?) {
+        when(v?.id) {
+            R.id.btnPrintJournal -> {
+                // TODO
+            }
+            else -> {
+            }
+        }
+    }
+
 }

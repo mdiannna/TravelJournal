@@ -115,6 +115,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 startActivity(intentMap)
             }
+            R.id.btnHelp -> {
+                val intentMap = Intent(this, AboutActivity::class.java).apply {
+                    // putExtra(EXTRA_MESSAGE, "HELLO")
+                }
+                startActivity(intentMap)
+            }
             else -> {
 
             }

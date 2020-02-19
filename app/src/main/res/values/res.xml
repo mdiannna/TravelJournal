@@ -8,6 +8,7 @@
 
     <item name="btnUploadPhoto" type="id"/>
     <item name="btnSaveJournal" type="id"/>
+    <item name="btnPrintJournal" type="id"/>
     <item name="btnNextPage" type="id"/>
 
 </resources>
