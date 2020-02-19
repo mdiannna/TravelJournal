@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="btnCreateJournal" type="id"/>
+    <item name="btnTopLocations" type="id"/>
+    <item name="btnMap" type="id"/>
+    <item name="btnHelp" type="id"/>
+
+    <item name="btnUploadPhoto" type="id"/>
+    <item name="btnSaveJournal" type="id"/>
+    <item name="btnNextPage" type="id"/>
+
 </resources>
