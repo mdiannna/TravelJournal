@@ -22,6 +22,11 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_create_journal.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit;
+
+import retrofit2.converter.gson.GsonConverterFactory
 
 class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     val PERMISSION_ID = 42
@@ -217,13 +222,20 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         return this.obtainedLongitude
     }
 
-//    // API requests
-//    //    http://api.opentripmap.com/0.1/ru/places/bbox?lon_min=28.76&lat_min=47.05&lon_max=28.9&lat_max=47.07&kinds=interesting_places&format=geojson&apikey=5ae2e3f221c38a28845f05b6eab28f2de056a215a99556e91c9be261
-//    private val customerGatewayServiceAPI = createApiService(
-//        BASE_URL,
-//        APIService: OpenTripApiService.java
-//    )
+    // API requests
+    //    http://api.opentripmap.com/0.1/ru/places/bbox?lon_min=28.76&lat_min=47.05&lon_max=28.9&lat_max=47.07&kinds=interesting_places&format=geojson&apikey=5ae2e3f221c38a28845f05b6eab28f2de056a215a99556e91c9be261
+    private val customerGatewayServiceAPI = createApiService(
+        BASE_URL,
+        OpenTripApiInterface::class.java
+    )
 
+    private fun <T> createApiService(baseURL: String, service: Class <T>): T {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(baseURL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        return retrofit.create(service)
+    }
 
 
 }
