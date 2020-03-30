@@ -85,13 +85,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buttonTopLocations.setOnClickListener(this)
         buttonHelp.setOnClickListener(this)
 
+        mainButtonsLayout.addView(buttonTopLocations)
+        mainButtonsLayout.addView(buttonMap)
+        mainButtonsLayout.addView(buttonHelp)
+
+
         linearLayout.addView(buttonCreateJournal)
         // in the future will be more buttons with journals
         linearLayout.addView(buttonJournal1)
-
-        linearLayout.addView(buttonTopLocations)
-        linearLayout.addView(buttonMap)
-        linearLayout.addView(buttonHelp)
 
     }
 
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when(v?.id) {
             R.id.btnCreateJournal -> {
                 val intent = Intent(this, CreateJournalActivity::class.java).apply {
-                // putExtra(EXTRA_MESSAGE, "HELLO")
+                // putExtra(EXTRA_MESSAGE, "HELLO"
                 }
                 startActivity(intent)
             }

@@ -7,4 +7,22 @@
     android:orientation="vertical"
     >
 
+    <TextView
+            android:id="@+id/latTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latitude: "/>
+
+    <TextView
+            android:id="@+id/lonTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitude: "/>
+    <Button
+        android:id="@+id/buttonUpdateLocation"
+        android:text="Update location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
 </LinearLayout>
