@@ -19,6 +19,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.example.traveljournal.data.APIService
+import com.example.traveljournal.data.APIServiceImpl
+import com.example.traveljournal.data.models.OpenTripApiObject
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_create_journal.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,9 +36,8 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     lateinit var mFusedLocationClient: FusedLocationProviderClient
     private var obtainedLatitude: Double? = 0.0
     private var obtainedLongitude: Double? = 0.0
-    val BASE_URL = "http://api.opentripmap.com/0.1/ru/"
-//    http://api.opentripmap.com/0.1/ru/places/bbox?lon_min=28.76&lat_min=47.05&lon_max=28.9&lat_max=47.07&kinds=interesting_places&format=geojson&apikey=5ae2e3f221c38a28845f05b6eab28f2de056a215a99556e91c9be261
 
+    private val apiService: APIService = APIServiceImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +91,9 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         getLastLocation()
+
+        //TODO: Call fetching of data from API
+        // getPlacesByCoordinates() Add all required parameters
     }
 
     override fun onClick(v:View?) {
@@ -222,20 +227,30 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         return this.obtainedLongitude
     }
 
-    // API requests
-    //    http://api.opentripmap.com/0.1/ru/places/bbox?lon_min=28.76&lat_min=47.05&lon_max=28.9&lat_max=47.07&kinds=interesting_places&format=geojson&apikey=5ae2e3f221c38a28845f05b6eab28f2de056a215a99556e91c9be261
-    private val customerGatewayServiceAPI = createApiService(
-        BASE_URL,
-        OpenTripApiInterface::class.java
-    )
-
-    private fun <T> createApiService(baseURL: String, service: Class <T>): T {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(baseURL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return retrofit.create(service)
+    private fun getPlacesByCoordinates(latMin: Double,
+                                       lngMin: Double,
+                                       latMax: Double,
+                                       lngMax:Double,
+                                       apiKey:String,
+                                       kinds:String) {
+        //TODO: Activity is not the best place for calling API request, even it is possible to perform
+        // such operation in activity, it is recomended to extract your business logic into separate component
+        GlobalScope.launch{
+            kotlin.runCatching {
+                apiService.getPlacesByCoordinates(latMin, lngMin, latMax, lngMax, apiKey, kinds)
+            }.onSuccess{
+               onPlacesFetched(it)
+            }.onFailure{
+                onPlacesFetchedError(it)
+            }
+        }
     }
 
+    private fun onPlacesFetched(places: OpenTripApiObject) {
+        print(places)
+    }
 
+    private fun onPlacesFetchedError(error: Throwable) {
+        print(error)
+    }
 }
