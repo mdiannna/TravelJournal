@@ -92,8 +92,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 
         getLastLocation()
 
-        //TODO: Call fetching of data from API
-        // getPlacesByCoordinates() Add all required parameters
+        updateDescriptionByLocation(obtainedLatitude, obtainedLongitude)
     }
 
     override fun onClick(v:View?) {
@@ -231,13 +230,12 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
                                        lngMin: Double,
                                        latMax: Double,
                                        lngMax:Double,
-                                       apiKey:String,
                                        kinds:String) {
         //TODO: Activity is not the best place for calling API request, even it is possible to perform
         // such operation in activity, it is recomended to extract your business logic into separate component
         GlobalScope.launch{
             kotlin.runCatching {
-                apiService.getPlacesByCoordinates(latMin, lngMin, latMax, lngMax, apiKey, kinds)
+                apiService.getPlacesByCoordinates(latMin, lngMin, latMax, lngMax, kinds)
             }.onSuccess{
                onPlacesFetched(it)
             }.onFailure{
@@ -248,9 +246,33 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 
     private fun onPlacesFetched(places: OpenTripApiObject) {
         print(places)
+        print(places.properties)
+        findViewById<TextView>(R.id.descriptionTextView).text = "+" + places.properties
+//        findViewById<TextView>(R.id.descriptionTextView).text = "+" + places.properties.name
+//        TODO: another call to api with id to get description
     }
 
     private fun onPlacesFetchedError(error: Throwable) {
         print(error)
+        findViewById<TextView>(R.id.descriptionTextView).text = error.message
+    }
+
+    private val LOCATION_DELTA = 0.01
+
+    private fun updateDescriptionByLocation(lat:Double?, lng:Double?) {
+        //TODO: Call fetching of data from API
+        // getPlacesByCoordinates() Add all required parameters
+//        var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
+
+        findViewById<TextView>(R.id.descriptionTextView).text = "Getting plalces"
+
+        if(lat==null || lng==null)  {
+            findViewById<TextView>(R.id.descriptionTextView).text = "No latitude or longitude."
+        } else {
+            getPlacesByCoordinates(lat-LOCATION_DELTA, lng-LOCATION_DELTA,
+            lat+LOCATION_DELTA, lng+LOCATION_DELTA,
+             "interesting_places,museums,cultural,tourist_object")
+
+        }
     }
 }

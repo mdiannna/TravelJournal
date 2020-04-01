@@ -7,6 +7,5 @@ interface APIService {
                                        latMin:Double,
                                        lngMax:Double,
                                        latMax:Double,
-                                       format:String = "geojson",
                                        kinds:String): OpenTripApiObject
 }

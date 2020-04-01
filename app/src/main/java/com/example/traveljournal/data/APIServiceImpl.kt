@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 // Implementation of APIService interface
 class APIServiceImpl: APIService {
     val BASE_URL = "http://api.opentripmap.com/0.1/ru/"
+//    val BASE_URL = "http://api.opentripmap.com/0.1/en/"
     private val API_KEY = "5ae2e3f221c38a28845f05b6eab28f2de056a215a99556e91c9be261"
 
     private val apiService = createApiService(
@@ -27,9 +28,9 @@ class APIServiceImpl: APIService {
         latMin: Double,
         lngMax: Double,
         latMax: Double,
-        format: String,
         kinds: String
+//        format: String, // has default value
     ): OpenTripApiObject {
-        return apiService.getPlacesByCoordinates(lngMin, latMin, lngMax, latMax, format, API_KEY, kinds)
+        return apiService.getPlacesByCoordinates(lngMin, latMin, lngMax, latMax, API_KEY, kinds)
     }
 }
