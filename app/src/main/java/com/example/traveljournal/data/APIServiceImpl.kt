@@ -1,13 +1,15 @@
 package com.example.traveljournal.data
 
 import com.example.traveljournal.data.models.OpenTripApiObject
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 // Implementation of APIService interface
 class APIServiceImpl: APIService {
-    val BASE_URL = "http://api.opentripmap.com/0.1/ru/"
-//    val BASE_URL = "http://api.opentripmap.com/0.1/en/"
+//    val BASE_URL = "http://api.opentripmap.com/0.1/ru/"
+    val BASE_URL = "http://api.opentripmap.com/0.1/en/"
     private val API_KEY = "5ae2e3f221c38a28845f05b6eab28f2de056a215a99556e91c9be261"
 
     private val apiService = createApiService(
@@ -16,9 +18,16 @@ class APIServiceImpl: APIService {
     )
 
     private fun <T> createApiService(baseURL: String, service: Class <T>): T {
+//        Logging interceptor - not working
+//        var logging:HttpLoggingInterceptor = HttpLoggingInterceptor()
+//        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+//        var httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
+//        httpClient.addInterceptor(logging)
+
         val retrofit = Retrofit.Builder()
             .baseUrl(baseURL)
             .addConverterFactory(GsonConverterFactory.create())
+//            .client(httpClient.build())
             .build()
         return retrofit.create(service)
     }

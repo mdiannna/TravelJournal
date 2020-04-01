@@ -1,4 +1,4 @@
-package com.example.traveljournal
+package com.example.traveljournal.data.models
 
 import com.google.gson.annotations.SerializedName
 
@@ -6,5 +6,5 @@ data class OpenTripApiGeometry(
     @SerializedName("type")
     val type:String,
     @SerializedName("coordinates")
-    val coordinates:ArrayList<Double>
+    val coordinates:List<Double>
 )

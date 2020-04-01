@@ -227,10 +227,10 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         return this.obtainedLongitude
     }
 
-    private fun getPlacesByCoordinates(latMin: Double,
-                                       lngMin: Double,
-                                       latMax: Double,
+    private fun getPlacesByCoordinates(lngMin: Double,
+                                       latMin: Double,
                                        lngMax:Double,
+                                       latMax: Double,
                                        kinds:String) :String {
         //TODO: Activity is not the best place for calling API request, even it is possible to perform
         // such operation in activity, it is recomended to extract your business logic into separate component
@@ -238,7 +238,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 
         GlobalScope.launch{
             kotlin.runCatching {
-                apiService.getPlacesByCoordinates(latMin, lngMin, latMax, lngMax, kinds)
+                apiService.getPlacesByCoordinates(lngMin, latMin, lngMax, latMax,kinds)
             }.onSuccess{
                result = onPlacesFetched(it)
                print(it)
@@ -297,8 +297,8 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
             print(lat+LOCATION_DELTA);
 
 
-            var result = getPlacesByCoordinates(lat-LOCATION_DELTA, lng-LOCATION_DELTA,
-            lat+LOCATION_DELTA, lng+LOCATION_DELTA,
+            var result = getPlacesByCoordinates( lng-LOCATION_DELTA,lat-LOCATION_DELTA,
+             lng+LOCATION_DELTA, lat+LOCATION_DELTA,
              "interesting_places")
             descriptionTextView.text = "!" + result
 
