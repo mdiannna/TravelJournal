@@ -257,8 +257,8 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         println(places)
         println(places.features)
 //        print(places.features.properties)
-//        findViewById<TextView>(R.id.descriptionTextView).text = "+" +
-//        return places.properties.name
+
+//        https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
         this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
             findViewById<TextView>(R.id.descriptionTextView).text = "Fetch places" + places
         })
