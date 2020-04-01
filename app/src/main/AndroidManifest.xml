@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.traveljournal">
-    
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/travel1"
         android:label="@string/app_name"
         android:roundIcon="@drawable/travel1"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".TopLocationsActivity"></activity>
+        android:hardwareAccelerated="false"
+        android:theme="@style/AppTheme.NoActionBar">
+
+        [<activity android:name=".OldMainActivity"></activity>
+        <activity android:name=".TopLocationsActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".JournalActivity" />
         <activity android:name=".MapActivity" />
