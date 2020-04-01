@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.traveljournal.R.color.colorPrimaryLight
 import kotlinx.android.synthetic.main.activity_journal.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -27,18 +28,19 @@ class JournalActivity : AppCompatActivity(), View.OnClickListener  {
         }
 
         // TODO: photo
-        var buttonPrintJournal = Button(this)
-        buttonPrintJournal.apply {
-            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT)
-            text = "Print journal"
-            setAllCaps(false)
-            textSize = 20f
-            id = R.id.btnPrintJournal
-        }
-
-        buttonPrintJournal.setOnClickListener(this)
-        journalLayout.addView(buttonPrintJournal)
+//        var buttonPrintJournal = Button(this)
+//        buttonPrintJournal.apply {
+//            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT)
+//            text = "Print journal"
+//            setAllCaps(false)
+//            textSize = 20f
+//            id = R.id.btnPrintJournal
+//        }
+//        buttonPrintJournal.setBackgroundColor(colorPrimaryLight)
+//
+//        buttonPrintJournal.setOnClickListener(this)
+//        journalLayout.addView(buttonPrintJournal)
 
     }
 
