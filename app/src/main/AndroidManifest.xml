@@ -15,7 +15,7 @@
         android:hardwareAccelerated="false"
         android:theme="@style/AppTheme.NoActionBar">
 
-        [<activity android:name=".OldMainActivity"></activity>
+        <activity android:name=".OldMainActivity"></activity>
         <activity android:name=".TopLocationsActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".JournalActivity" />

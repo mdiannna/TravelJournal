@@ -5,4 +5,7 @@
     about the place you are visiting. Then you have a Travel Journal with map of locations,
     photos and informations about the locations that you can print and share. </string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
