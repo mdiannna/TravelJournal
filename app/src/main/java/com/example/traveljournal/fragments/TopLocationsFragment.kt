@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.traveljournal.R
 
@@ -27,6 +28,9 @@ class TopLocationsFragment: Fragment() {
                               savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
+        var rootView = inflater.inflate(R.layout.fragment_top_locations, container, false)
+        var recyclerView:RecyclerView =  rootView.findViewById(R.id.top_locations_recycler_view)
+
 
         addLocations()
 
@@ -34,16 +38,14 @@ class TopLocationsFragment: Fragment() {
         viewManager = LinearLayoutManager(getActivity())
         viewAdapter = LocationListAdapter(locationList)
 
-//        top_locations_recycler_view.adapter =
-        top_locations_recycler_view.apply {
+        recyclerView.layoutManager = viewManager
+
+//        top_locations_recycler_view.apply {
+        recyclerView.apply {
             setHasFixedSize(true)
-            layoutManager = viewManager
             adapter = viewAdapter
         }
 
-        if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_map, null)
-        }
 
         return rootView
 

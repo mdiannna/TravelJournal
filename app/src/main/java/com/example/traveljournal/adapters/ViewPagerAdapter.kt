@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.traveljournal.fragments.AboutFragment
 import com.example.traveljournal.fragments.MapFragment
-//import com.example.traveljournal.fragments.TopLocationsFragment
+import com.example.traveljournal.fragments.TopLocationsFragment
 import com.example.traveljournal.fragments.JournalsFragment
 
 
@@ -16,14 +16,14 @@ class ViewPagerAdapter(fragmentManager: FragmentManager):
     private val tabTitles: Array<String> = arrayOf(
         "About",
         "Map",
-//        "Top locations",
+        "Top locations",
         "Journals"
     )
 
     private val pagerFragments: Array<Fragment> = arrayOf(
         AboutFragment(),
         MapFragment(),
-//        TopLocationsFragment(),
+        TopLocationsFragment(),
         JournalsFragment()
     )
 
