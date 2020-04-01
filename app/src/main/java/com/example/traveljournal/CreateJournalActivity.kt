@@ -251,16 +251,17 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     }
 
     private fun onPlacesFetched(places: OpenTripApiObject):String {
+//      For easier debug:
         println("PLACES!!!")
         println("PLACES!!!")
         println("PLACES!!!")
         println(places)
         println(places.features)
-//        print(places.features.properties)
 
 //        https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
         this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
-            findViewById<TextView>(R.id.descriptionTextView).text = "Fetch places" + places
+            findViewById<TextView>(R.id.descriptionTextView).text =
+                places.features[0].properties.name + " (" +places.features[0].properties.kinds + ")"
         })
 
         return places.toString()
@@ -269,10 +270,15 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     }
 
     private fun onPlacesFetchedError(error: Throwable):String {
+//      For easier debug:
         println("ERROR!!!")
         println("ERROR!!!")
         println("ERROR!!!")
         print(error)
+        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
+            findViewById<TextView>(R.id.descriptionTextView).text = "Error:" + error
+        })
+
         return "Error:" + error
     }
 
@@ -297,10 +303,10 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
             print(lat+LOCATION_DELTA);
 
 
-            var result = getPlacesByCoordinates( lng-LOCATION_DELTA,lat-LOCATION_DELTA,
+             getPlacesByCoordinates( lng-LOCATION_DELTA,lat-LOCATION_DELTA,
              lng+LOCATION_DELTA, lat+LOCATION_DELTA,
              "interesting_places")
-            descriptionTextView.text = "!" + result
+//            descriptionTextView.text = "!" + result
 
         }
     }
