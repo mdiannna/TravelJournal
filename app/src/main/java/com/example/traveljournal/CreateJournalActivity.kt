@@ -230,31 +230,49 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
                                        lngMin: Double,
                                        latMax: Double,
                                        lngMax:Double,
-                                       kinds:String) {
+                                       kinds:String) :String {
         //TODO: Activity is not the best place for calling API request, even it is possible to perform
         // such operation in activity, it is recomended to extract your business logic into separate component
+        var result:String = ""
+
         GlobalScope.launch{
             kotlin.runCatching {
                 apiService.getPlacesByCoordinates(latMin, lngMin, latMax, lngMax, kinds)
             }.onSuccess{
-               onPlacesFetched(it)
+               result = onPlacesFetched(it)
+               print(it)
             }.onFailure{
-                onPlacesFetchedError(it)
+                result = onPlacesFetchedError(it)
             }
         }
+
+        return result
     }
 
-    private fun onPlacesFetched(places: OpenTripApiObject) {
-        print(places)
-        print(places.properties)
-        findViewById<TextView>(R.id.descriptionTextView).text = "+" + places.properties
-//        findViewById<TextView>(R.id.descriptionTextView).text = "+" + places.properties.name
+    private fun onPlacesFetched(places: OpenTripApiObject):String {
+        println("PLACES!!!")
+        println("PLACES!!!")
+        println("PLACES!!!")
+        println(places)
+        println(places.features)
+//        print(places.features.properties)
+//        findViewById<TextView>(R.id.descriptionTextView).text = "+" +
+//        return places.properties.name
+        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
+            findViewById<TextView>(R.id.descriptionTextView).text = "Fetch places" + places
+        })
+
+        return places.toString()
+//
 //        TODO: another call to api with id to get description
     }
 
-    private fun onPlacesFetchedError(error: Throwable) {
+    private fun onPlacesFetchedError(error: Throwable):String {
+        println("ERROR!!!")
+        println("ERROR!!!")
+        println("ERROR!!!")
         print(error)
-        findViewById<TextView>(R.id.descriptionTextView).text = error.message
+        return "Error:" + error
     }
 
     private val LOCATION_DELTA = 0.01
@@ -262,16 +280,18 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     private fun updateDescriptionByLocation(lat:Double?, lng:Double?) {
         //TODO: Call fetching of data from API
         // getPlacesByCoordinates() Add all required parameters
-//        var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
+
+        var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
 
         findViewById<TextView>(R.id.descriptionTextView).text = "Getting plalces"
 
         if(lat==null || lng==null)  {
             findViewById<TextView>(R.id.descriptionTextView).text = "No latitude or longitude."
         } else {
-            getPlacesByCoordinates(lat-LOCATION_DELTA, lng-LOCATION_DELTA,
+            var result = getPlacesByCoordinates(lat-LOCATION_DELTA, lng-LOCATION_DELTA,
             lat+LOCATION_DELTA, lng+LOCATION_DELTA,
-             "interesting_places,museums,cultural,tourist_object")
+             "interesting_places")
+            descriptionTextView.text = "!" + result
 
         }
     }

@@ -1,0 +1,422 @@
+http://api.opentripmap.com/0.1/ru/places/bbox?lon_min=28.76&lat_min=47.05&lon_max=28.9&lat_max=47.07&kinds=interesting_places&format=geojson&apikey=5ae2e3f221c38a28845f05b6eab28f2de056a215a99556e91c9be261
+
+{"type":"FeatureCollection","features":[{"type":"Feature","id":"9549200","geometry":{"type":"Point","coordinates":[28.826077,47.06826]},"properties":{"xid":"R7953893","name":"Кладбище им. Святого Лазаря","rate":3,"osm":"relation/7953893","wikidata":"Q12724061","kinds":"cemeteries,historic,burial_places,interesting_places"}},{"type":"Feature","id":"402351","geometry":{"type":"Point","coordinates":[28.864826,47.050774]},"properties":{"xid":"N5259791626","name":"Музей-мемориал Ветеранов Афганистана","rate":1,"osm":"node/5259791626","kinds":"museums,cultural,interesting_places,other_museums"}},{"type":"Feature","id":"2190903","geometry":{"type":"Point","coordinates":[28.865177,47.06039]},"properties":{"xid":"N4235932494","name":"Lab 511 Alternosfera","rate":1,"osm":"node/4235932494","kinds":"other,unclassified_objects,interesting_places,tourist_object"}},{"type":"Feature","id":"2259777","geometry":{"type":"Point","coordinates":[28.763548,47.066624]},"properties":{"xid":"N4353730693","name":"Formula Kart","rate":1,"osm":"node/4353730693","kinds":"other,unclassified_objects,interesting_places,tourist_object"}},{"type":"Feature","id":"3485194","geometry":{"type":"Point","coordinates":[28.866076,47.054661]},"properties":{"xid":"N4763581836","name":"Военный музей","rate":1,"osm":"node/4763581836","kinds":"museums,cultural,interesting_places,other_museums"}},{"type":"Feature","id":"3520185","geometry":{"type":"Point","coordinates":[28.866137,47.060116]},"properties":{"xid":"N275032551","name":"Патрия Рышкановка","rate":1,"osm":"node/275032551","kinds":"cultural,cinemas,theatres_and_entertainments,interesting_places"}},{"type":"Feature","id":"3555148","geometry":{"type":"Point","coordinates":[28.897949,47.067707]},"properties":{"xid":"N4850389525","name":"Недостроенный Мост","rate":1,"osm":"node/4850389525","kinds":"urban_environment,cultural,interesting_places,installation"}},{"type":"Feature","id":"3624205","geometry":{"type":"Point","coordinates":[28.869574,47.060417]},"properties":{"xid":"W397035911","name":"Havuzul din parcul muzeu UTM","rate":1,"osm":"way/397035911","kinds":"fountains,urban_environment,cultural,interesting_places"}},{"type":"Feature","id":"3776281","geometry":{"type":"Point","coordinates":[28.772486,47.051865]},"properties":{"xid":"W593767459","name":"Chișinău","rate":1,"osm":"way/593767459","kinds":"milestones,historic,monuments_and_memorials,interesting_places"}},{"type":"Feature","id":"3957487","geometry":{"type":"Point","coordinates":[28.799953,47.062229]},"properties":{"xid":"N4368226193","name":"Дом Генерала-Майора Бурдужа","rate":1,"osm":"node/4368226193","kinds":"historic,monuments_and_memorials,interesting_places,monuments"}},{"type":"Feature","id":"3957488","geometry":{"type":"Point","coordinates":[28.80497,47.06004]},"properties":{"xid":"N4368414489","name":"Дом бывшего министра внутренних дел Папука","rate":1,"osm":"node/4368414489","kinds":"historic,monuments_and_memorials,interesting_places,monuments"}},{"type":"Feature","id":"4519324","geometry":{"type":"Point","coordinates":[28.798977,47.057201]},"properties":{"xid":"N5172140545","name":"Петриканское кладбище","rate":1,"osm":"node/5172140545","kinds":"cemeteries,historic,burial_places,interesting_places"}},{"type":"Feature","id":"4577443","geometry":{"type":"Point","coordinates":[28.848206,47.058277]},"properties":{"xid":"W55617158","name":"Зал Царства Свидетелей Иеговы","rate":1,"osm":"way/55617158","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"4661475","geometry":{"type":"Point","coordinates":[28.846735,47.063828]},"properties":{"xid":"N6513996185","name":"Храм Святого Николая.","rate":1,"osm":"node/6513996185","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"4921288","geometry":{"type":"Point","coordinates":[28.847176,47.060768]},"properties":{"xid":"W380961437","name":"Церковь Святой Серафим","rate":1,"osm":"way/380961437","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"4970914","geometry":{"type":"Point","coordinates":[28.831261,47.069176]},"properties":{"xid":"W634034704","name":"Biserica „Sfîntul Lazăr”","rate":1,"osm":"way/634034704","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"5598600","geometry":{"type":"Point","coordinates":[28.860273,47.057274]},"properties":{"xid":"N5152405722","name":"Парковка","rate":1,"osm":"node/5152405722","kinds":"view_points,other,interesting_places"}},{"type":"Feature","id":"7826716","geometry":{"type":"Point","coordinates":[28.864658,47.05732]},"properties":{"xid":"N5885146268","name":"SECTOR Paintball \u0026 Lasertag Arena","rate":1,"osm":"node/5885146268","kinds":"other,unclassified_objects,interesting_places,tourist_object"}},{"type":"Feature","id":"8401083","geometry":{"type":"Point","coordinates":[28.798822,47.05706]},"properties":{"xid":"N5172140546","name":"Восточная православная церковь","rate":1,"osm":"node/5172140546","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"9721764","geometry":{"type":"Point","coordinates":[28.892361,47.056866]},"properties":{"xid":"W344605761","name":"Biserica Ortodoxă „Sfântul Cuvios Ioan Iacob de la Neamt-Hozevitul”","rate":1,"osm":"way/344605761","kinds":"religion,churches,interesting_places,eastern_orthodox_churches"}},{"type":"Feature","id":"9736813","geometry":{"type":"Point","coordinates":[28.892273,47.056828]},"properties":{"xid":"N3513569309","name":"Biserica Ortodoxă „Sfântul Cuvios Ioan Iacob de la Neamt-Hozevitul”","rate":1,"osm":"node/3513569309","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"390615","geometry":{"type":"Point","coordinates":[28.868776,47.066502]},"properties":{"xid":"W405979068","name":"","rate":0,"osm":"way/405979068","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"1579802","geometry":{"type":"Point","coordinates":[28.863058,47.060825]},"properties":{"xid":"N2432976672","name":"","rate":0,"osm":"node/2432976672","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"3793254","geometry":{"type":"Point","coordinates":[28.868095,47.059757]},"properties":{"xid":"N364847235","name":"","rate":0,"osm":"node/364847235","kinds":"historic,monuments_and_memorials,interesting_places,monuments"}},{"type":"Feature","id":"4592014","geometry":{"type":"Point","coordinates":[28.811995,47.059711]},"properties":{"xid":"W256876725","name":"","rate":0,"osm":"way/256876725","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"4874242","geometry":{"type":"Point","coordinates":[28.884329,47.052197]},"properties":{"xid":"W45065580","name":"","rate":0,"osm":"way/45065580","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"4921274","geometry":{"type":"Point","coordinates":[28.85136,47.056358]},"properties":{"xid":"W380961438","name":"","rate":0,"osm":"way/380961438","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"4921284","geometry":{"type":"Point","coordinates":[28.847252,47.060616]},"properties":{"xid":"W380961436","name":"","rate":0,"osm":"way/380961436","kinds":"religion,other_temples,interesting_places"}},{"type":"Feature","id":"8780127","geometry":{"type":"Point","coordinates":[28.895924,47.060909]},"properties":{"xid":"W86683935","name":"","rate":0,"osm":"way/86683935","kinds":"religion,other_temples,interesting_places"}}]}
+
+
+
+
+
+
+
+Formatted JSON:
+{
+	"type": "FeatureCollection",
+	"features": [{
+		"type": "Feature",
+		"id": "9549200",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.826077, 47.06826]
+		},
+		"properties": {
+			"xid": "R7953893",
+			"name": "Кладбище им. Святого Лазаря",
+			"rate": 3,
+			"osm": "relation/7953893",
+			"wikidata": "Q12724061",
+			"kinds": "cemeteries,historic,burial_places,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "402351",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.864826, 47.050774]
+		},
+		"properties": {
+			"xid": "N5259791626",
+			"name": "Музей-мемориал Ветеранов Афганистана",
+			"rate": 1,
+			"osm": "node/5259791626",
+			"kinds": "museums,cultural,interesting_places,other_museums"
+		}
+	}, {
+		"type": "Feature",
+		"id": "2190903",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.865177, 47.06039]
+		},
+		"properties": {
+			"xid": "N4235932494",
+			"name": "Lab 511 Alternosfera",
+			"rate": 1,
+			"osm": "node/4235932494",
+			"kinds": "other,unclassified_objects,interesting_places,tourist_object"
+		}
+	}, {
+		"type": "Feature",
+		"id": "2259777",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.763548, 47.066624]
+		},
+		"properties": {
+			"xid": "N4353730693",
+			"name": "Formula Kart",
+			"rate": 1,
+			"osm": "node/4353730693",
+			"kinds": "other,unclassified_objects,interesting_places,tourist_object"
+		}
+	}, {
+		"type": "Feature",
+		"id": "3485194",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.866076, 47.054661]
+		},
+		"properties": {
+			"xid": "N4763581836",
+			"name": "Военный музей",
+			"rate": 1,
+			"osm": "node/4763581836",
+			"kinds": "museums,cultural,interesting_places,other_museums"
+		}
+	}, {
+		"type": "Feature",
+		"id": "3520185",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.866137, 47.060116]
+		},
+		"properties": {
+			"xid": "N275032551",
+			"name": "Патрия Рышкановка",
+			"rate": 1,
+			"osm": "node/275032551",
+			"kinds": "cultural,cinemas,theatres_and_entertainments,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "3555148",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.897949, 47.067707]
+		},
+		"properties": {
+			"xid": "N4850389525",
+			"name": "Недостроенный Мост",
+			"rate": 1,
+			"osm": "node/4850389525",
+			"kinds": "urban_environment,cultural,interesting_places,installation"
+		}
+	}, {
+		"type": "Feature",
+		"id": "3624205",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.869574, 47.060417]
+		},
+		"properties": {
+			"xid": "W397035911",
+			"name": "Havuzul din parcul muzeu UTM",
+			"rate": 1,
+			"osm": "way/397035911",
+			"kinds": "fountains,urban_environment,cultural,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "3776281",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.772486, 47.051865]
+		},
+		"properties": {
+			"xid": "W593767459",
+			"name": "Chișinău",
+			"rate": 1,
+			"osm": "way/593767459",
+			"kinds": "milestones,historic,monuments_and_memorials,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "3957487",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.799953, 47.062229]
+		},
+		"properties": {
+			"xid": "N4368226193",
+			"name": "Дом Генерала-Майора Бурдужа",
+			"rate": 1,
+			"osm": "node/4368226193",
+			"kinds": "historic,monuments_and_memorials,interesting_places,monuments"
+		}
+	}, {
+		"type": "Feature",
+		"id": "3957488",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.80497, 47.06004]
+		},
+		"properties": {
+			"xid": "N4368414489",
+			"name": "Дом бывшего министра внутренних дел Папука",
+			"rate": 1,
+			"osm": "node/4368414489",
+			"kinds": "historic,monuments_and_memorials,interesting_places,monuments"
+		}
+	}, {
+		"type": "Feature",
+		"id": "4519324",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.798977, 47.057201]
+		},
+		"properties": {
+			"xid": "N5172140545",
+			"name": "Петриканское кладбище",
+			"rate": 1,
+			"osm": "node/5172140545",
+			"kinds": "cemeteries,historic,burial_places,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "4577443",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.848206, 47.058277]
+		},
+		"properties": {
+			"xid": "W55617158",
+			"name": "Зал Царства Свидетелей Иеговы",
+			"rate": 1,
+			"osm": "way/55617158",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "4661475",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.846735, 47.063828]
+		},
+		"properties": {
+			"xid": "N6513996185",
+			"name": "Храм Святого Николая.",
+			"rate": 1,
+			"osm": "node/6513996185",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "4921288",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.847176, 47.060768]
+		},
+		"properties": {
+			"xid": "W380961437",
+			"name": "Церковь Святой Серафим",
+			"rate": 1,
+			"osm": "way/380961437",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "4970914",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.831261, 47.069176]
+		},
+		"properties": {
+			"xid": "W634034704",
+			"name": "Biserica „Sfîntul Lazăr”",
+			"rate": 1,
+			"osm": "way/634034704",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "5598600",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.860273, 47.057274]
+		},
+		"properties": {
+			"xid": "N5152405722",
+			"name": "Парковка",
+			"rate": 1,
+			"osm": "node/5152405722",
+			"kinds": "view_points,other,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "7826716",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.864658, 47.05732]
+		},
+		"properties": {
+			"xid": "N5885146268",
+			"name": "SECTOR Paintball \u0026 Lasertag Arena",
+			"rate": 1,
+			"osm": "node/5885146268",
+			"kinds": "other,unclassified_objects,interesting_places,tourist_object"
+		}
+	}, {
+		"type": "Feature",
+		"id": "8401083",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.798822, 47.05706]
+		},
+		"properties": {
+			"xid": "N5172140546",
+			"name": "Восточная православная церковь",
+			"rate": 1,
+			"osm": "node/5172140546",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "9721764",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.892361, 47.056866]
+		},
+		"properties": {
+			"xid": "W344605761",
+			"name": "Biserica Ortodoxă „Sfântul Cuvios Ioan Iacob de la Neamt-Hozevitul”",
+			"rate": 1,
+			"osm": "way/344605761",
+			"kinds": "religion,churches,interesting_places,eastern_orthodox_churches"
+		}
+	}, {
+		"type": "Feature",
+		"id": "9736813",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.892273, 47.056828]
+		},
+		"properties": {
+			"xid": "N3513569309",
+			"name": "Biserica Ortodoxă „Sfântul Cuvios Ioan Iacob de la Neamt-Hozevitul”",
+			"rate": 1,
+			"osm": "node/3513569309",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "390615",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.868776, 47.066502]
+		},
+		"properties": {
+			"xid": "W405979068",
+			"name": "",
+			"rate": 0,
+			"osm": "way/405979068",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "1579802",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.863058, 47.060825]
+		},
+		"properties": {
+			"xid": "N2432976672",
+			"name": "",
+			"rate": 0,
+			"osm": "node/2432976672",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "3793254",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.868095, 47.059757]
+		},
+		"properties": {
+			"xid": "N364847235",
+			"name": "",
+			"rate": 0,
+			"osm": "node/364847235",
+			"kinds": "historic,monuments_and_memorials,interesting_places,monuments"
+		}
+	}, {
+		"type": "Feature",
+		"id": "4592014",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.811995, 47.059711]
+		},
+		"properties": {
+			"xid": "W256876725",
+			"name": "",
+			"rate": 0,
+			"osm": "way/256876725",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "4874242",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.884329, 47.052197]
+		},
+		"properties": {
+			"xid": "W45065580",
+			"name": "",
+			"rate": 0,
+			"osm": "way/45065580",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "4921274",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.85136, 47.056358]
+		},
+		"properties": {
+			"xid": "W380961438",
+			"name": "",
+			"rate": 0,
+			"osm": "way/380961438",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "4921284",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.847252, 47.060616]
+		},
+		"properties": {
+			"xid": "W380961436",
+			"name": "",
+			"rate": 0,
+			"osm": "way/380961436",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}, {
+		"type": "Feature",
+		"id": "8780127",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [28.895924, 47.060909]
+		},
+		"properties": {
+			"xid": "W86683935",
+			"name": "",
+			"rate": 0,
+			"osm": "way/86683935",
+			"kinds": "religion,other_temples,interesting_places"
+		}
+	}]
+}
