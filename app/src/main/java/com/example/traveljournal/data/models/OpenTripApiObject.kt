@@ -8,5 +8,5 @@ data class OpenTripApiObject(
     @SerializedName("type")
     val type:String,
     @SerializedName("features")
-    val features: ArrayList<OpenTripApiFeature>
+    val features: List<OpenTripApiFeature>
 )

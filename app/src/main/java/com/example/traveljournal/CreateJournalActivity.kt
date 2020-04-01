@@ -170,6 +170,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
                         findViewById<TextView>(R.id.lonTextView).text = longitude.toString()
                         // TODO: updateDescriptionByLocation, care are api call la get description by x, y etc
                         this.setCoordinates(latitude, longitude)
+                        updateDescriptionByLocation(latitude, longitude)
                     }
                 }
             } else {
@@ -285,9 +286,17 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 
         findViewById<TextView>(R.id.descriptionTextView).text = "Getting plalces"
 
-        if(lat==null || lng==null)  {
+        if(lat==null || lng==null || lat < 0.001  || lng < 0.001)  {
             findViewById<TextView>(R.id.descriptionTextView).text = "No latitude or longitude."
         } else {
+            println("Lat:");
+            print(lat);
+            println("Lng:");
+            print(lng);
+            println("Max Lat:");
+            print(lat+LOCATION_DELTA);
+
+
             var result = getPlacesByCoordinates(lat-LOCATION_DELTA, lng-LOCATION_DELTA,
             lat+LOCATION_DELTA, lng+LOCATION_DELTA,
              "interesting_places")
