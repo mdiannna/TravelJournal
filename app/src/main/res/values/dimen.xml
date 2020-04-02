@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="layout_height"></dimen>
-    <dimen name="tab_layout_height">30dp</dimen>
+    <dimen name="tab_layout_height">50dp</dimen>
     <dimen name="thumbnail_img_width">50dp</dimen>
     <dimen name="thumbnail_img_height">50dp</dimen>
     <dimen name="txv_padding">16dp</dimen>

@@ -14,17 +14,17 @@ class ViewPagerAdapter(fragmentManager: FragmentManager):
     FragmentStatePagerAdapter(fragmentManager) {
 
     private val tabTitles: Array<String> = arrayOf(
+        "Journals",
         "About",
         "Map",
-        "Top locations",
-        "Journals"
+        "Top locations"
     )
 
     private val pagerFragments: Array<Fragment> = arrayOf(
+        JournalsFragment(),
         AboutFragment(),
         MapFragment(),
-        TopLocationsFragment(),
-        JournalsFragment()
+        TopLocationsFragment()
     )
 
     override fun getItem(position: Int): Fragment {
