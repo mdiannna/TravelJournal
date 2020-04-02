@@ -7,9 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.example.traveljournal.*
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +25,9 @@ private const val ARG_PARAM2 = "param2"
 class JournalsFragment : Fragment(), View.OnClickListener  {
     // TODO: Rename and change types of parameters
     private var message: String? = null
+    private val itemList:Array<String>
+        get() = arrayOf("Louvre", "Stefan cel Mare", "Arcul de Triumf")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,25 +42,31 @@ class JournalsFragment : Fragment(), View.OnClickListener  {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-    var rootView = inflater.inflate(R.layout.fragment_journals, container, false)
+
+        var rootView = inflater.inflate(R.layout.fragment_journals, container, false)
 
         var linearLayout:LinearLayout =  rootView.findViewById(R.id.journalLayout)
+        // Create and populate GridView
+        val gridview = rootView.findViewById<GridView>(R.id.gridview)
+        val adapter = getActivity()?.let { JournalsGridAdapter(it, R.layout.journal_item, itemList) }
+        gridview.adapter = adapter
 
-    //        val textView = findViewById<TextView>(R.id.mainTextView).apply {
-    //            text = message
-    //        }
+
 
         // Create buttons
-        var buttonCreateJournal = Button(getActivity())
-        buttonCreateJournal.apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT)
-            text = "Create journal"
-            setAllCaps(false)
-            textSize = 20f
-            id = R.id.btnCreateJournal
-        }
+//        var buttonCreateJournal = Button(getActivity())
+
+        var buttonCreateJournal = rootView.findViewById<Button>(R.id.btnCreateJournal)
+
+//        buttonCreateJournal.apply {
+//            layoutParams = LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT)
+//            text = "Create journal"
+//            setAllCaps(false)
+//            textSize = 20f
+//            id = R.id.btnCreateJournal
+//        }
 
         var buttonJournal1 = Button(activity)
         buttonJournal1.apply {
@@ -83,50 +90,33 @@ class JournalsFragment : Fragment(), View.OnClickListener  {
             textSize = 20f
             id = R.id.btnTopLocations
         }
-//
-//        // TODO: photo
-//        var buttonMap = Button(getActivity())
-//        buttonMap.apply {
-//            layoutParams = LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT)
-//            text = "Map"
-//            setAllCaps(false)
-//            textSize = 20f
-//            id = R.id.btnMap
-//        }
-//
-//        // TODO: photo
-//        var buttonHelp = Button(this)
-//        buttonHelp.apply {
-//            layoutParams = LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT)
-//            text = "About"
-//            setAllCaps(false)
-//            textSize = 20f
-//            id = R.id.btnHelp
-//        }
-//
 
         buttonCreateJournal.setOnClickListener(this)
         buttonJournal1.setOnClickListener(this)
-//        buttonMap.setOnClickListener(this)
-//        buttonTopLocations.setOnClickListener(this)
-//        buttonHelp.setOnClickListener(this)
-
-//        mainButtonsLayout.addView(buttonTopLocations)
-//        mainButtonsLayout.addView(buttonMap)
-//        mainButtonsLayout.addView(buttonHelp)
 
 
-        linearLayout.addView(buttonCreateJournal)
+       // linearLayout.addView(buttonCreateJournal)
         // in the future will be more buttons with journals
-        linearLayout.addView(buttonJournal1)
+    //    linearLayout.addView(buttonJournal1)
+
+
+
+        gridview.onItemClickListener = AdapterView.OnItemClickListener {
+                parent, v, position, id
+                        -> startJournalActivity(position, id)
+        }
 
 
         // Inflate the layout for this fragment
         return rootView
+    }
+
+//    TODO: customize
+    private fun startJournalActivity(position:Int, id:Long) {
+        val intent = Intent(getActivity(), JournalActivity::class.java).apply {
+            // putExtra(EXTRA_MESSAGE, "HELLO")
+        }
+        startActivity(intent)
     }
 
 
@@ -138,6 +128,7 @@ class JournalsFragment : Fragment(), View.OnClickListener  {
                 }
                 startActivity(intent)
             }
+//            TODO: delete after test
             R.id.btnJournal1 -> {
                 val intent = Intent(getActivity(), JournalActivity::class.java).apply {
                     // putExtra(EXTRA_MESSAGE, "HELLO")
