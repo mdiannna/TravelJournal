@@ -26,5 +26,16 @@ interface OpenTripApiInterface {
         @Query("apikey") apikey:String
         ): OpenTripDetailedObject
 
-//    @POST()
+
+    // WARNING: this POST request doesn't exist on the OpenTripMapApi, it is only a demo how to write POST request
+    @POST("place/create/new")
+    suspend fun createNewPlace(@Body place:OpenTripDetailedObject)
+
+    // WARNING: this POST request doesn't exist on the OpenTripMapApi, it is only a demo how to write POST request
+    @POST("place/update/{id}")
+    suspend fun createUpdatePlace(
+        @Path("id") id:String78,
+        @Body place:OpenTripDetailedObject
+    )
+
 }
