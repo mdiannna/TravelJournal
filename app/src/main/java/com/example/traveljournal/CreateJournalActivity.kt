@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.location.Location
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
@@ -14,14 +15,12 @@ import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.provider.Settings
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import com.example.traveljournal.data.APIService
 import com.example.traveljournal.data.APIServiceImpl
 import com.example.traveljournal.data.models.OpenTripApiObject
+import com.example.traveljournal.data.models.OpenTripDetailedObject
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_create_journal.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,9 +45,9 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         var buttonUploadPhoto = Button(this)
         buttonUploadPhoto.apply {
             layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
-            text = "Upload photo"
+            text = "+ Photo"
             setAllCaps(false)
             textSize = 20f
             id = R.id.btnUploadPhoto
@@ -57,7 +56,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         var buttonNextPage = Button(this)
         buttonNextPage.apply {
             layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
             text = "Next"
             setAllCaps(false)
@@ -68,7 +67,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         var buttonSaveJournal = Button(this)
         buttonSaveJournal.apply {
             layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
             text = "Save journal"
             setAllCaps(false)
@@ -227,6 +226,47 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         return this.obtainedLongitude
     }
 
+    private fun getPlacesDetailedInfo(id: String) {
+        GlobalScope.launch{
+            kotlin.runCatching {
+                apiService.getPlacesDetailedInfo(id)
+            }.onSuccess{
+                onPlacesDetailsFetched(it)
+            }.onFailure{
+                onPlacesDetailsFetchedError(it)
+            }
+        }
+    }
+
+
+    private fun onPlacesDetailsFetched(details: OpenTripDetailedObject) {
+//      For easier debug:
+        println("DETAILS!!!")
+        println(details)
+        println(details.name)
+        println(details.wikipediaExtracts.text)
+        println(details.image)
+
+//        https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
+        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
+            findViewById<TextView>(R.id.descriptionTextView).text = details.wikipediaExtracts.text
+//            TODO: set image from url (maybe using picasso)
+            findViewById<ImageView>(R.id.placeImage).setImageResource(R.drawable.louvre)
+//            findViewById<ImageView>(R.id.placeImage).setImageURI(details.image)
+
+        })
+    }
+
+    private fun onPlacesDetailsFetchedError(error: Throwable) {
+//      For easier debug:
+        println("ERROR!!!")
+        print(error)
+        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
+            findViewById<TextView>(R.id.descriptionTextView).text = "Error:" + error
+        })
+    }
+
+
     private fun getPlacesByCoordinates(lngMin: Double,
                                        latMin: Double,
                                        lngMax:Double,
@@ -260,8 +300,11 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 
 //        https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
         this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
-            findViewById<TextView>(R.id.descriptionTextView).text =
+            findViewById<TextView>(R.id.nameTextView).text =
                 places.features[0].properties.name + " (" +places.features[0].properties.kinds + ")"
+            // TODO: get description of place with correct id
+             getPlacesDetailedInfo(places.features[0].properties.id)
+//            getPlacesDetailedInfo(id)
         })
 
         return places.toString()
@@ -276,7 +319,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         println("ERROR!!!")
         print(error)
         this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
-            findViewById<TextView>(R.id.descriptionTextView).text = "Error:" + error
+            findViewById<TextView>(R.id.nameTextView).text = "Error:" + error
         })
 
         return "Error:" + error
@@ -289,11 +332,14 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         // getPlacesByCoordinates() Add all required parameters
 
         var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
+        var <TextView> nameTextView = findViewById<TextView>(R.id.nameTextView)
 
-        findViewById<TextView>(R.id.descriptionTextView).text = "Getting plalces"
+        nameTextView.text = "Getting places"
+        descriptionTextView.text = "Getting places"
 
         if(lat==null || lng==null || lat < 0.001  || lng < 0.001)  {
-            findViewById<TextView>(R.id.descriptionTextView).text = "No latitude or longitude."
+            descriptionTextView.text = "No latitude or longitude."
+            nameTextView.text = "No latitude or longitude."
         } else {
             println("Lat:");
             print(lat);
@@ -302,12 +348,9 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
             println("Max Lat:");
             print(lat+LOCATION_DELTA);
 
-
              getPlacesByCoordinates( lng-LOCATION_DELTA,lat-LOCATION_DELTA,
              lng+LOCATION_DELTA, lat+LOCATION_DELTA,
              "interesting_places")
-//            descriptionTextView.text = "!" + result
-
         }
     }
 }

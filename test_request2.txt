@@ -1,0 +1,3 @@
+ curl http://api.opentripmap.com/0.1/ru/places/xid/892137?apikey=5ae2e3f221c38a28845f05b6eab28f2de056a215a99556e91c9be261
+
+{"xid":"N445334479","name":"Biserica sf. Arhanghel Mihail","address":{"state":"Raionul Anenii Noi","country":"Moldova","village":"Mereni","postcode":"6526","country_code":"md"},"rate":"1","osm":"node/445334479","kinds":"religion,other_temples,interesting_places","sources":{"geometry":"osm","attributes":["osm"]},"otm":"https://opentripmap.com/ru/card/N445334479","point":{"lon":29.054026,"lat":46.963524}}

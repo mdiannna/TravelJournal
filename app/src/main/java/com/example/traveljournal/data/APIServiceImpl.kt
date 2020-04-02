@@ -1,6 +1,7 @@
 package com.example.traveljournal.data
 
 import com.example.traveljournal.data.models.OpenTripApiObject
+import com.example.traveljournal.data.models.OpenTripDetailedObject
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -41,5 +42,12 @@ class APIServiceImpl: APIService {
 //        format: String, // has default value
     ): OpenTripApiObject {
         return apiService.getPlacesByCoordinates(lngMin, latMin, lngMax, latMax, API_KEY, kinds)
+    }
+
+    override suspend fun  getPlacesDetailedInfo(id:String): OpenTripDetailedObject {
+        println("API_KEY")
+        println(API_KEY)
+//        return apiService.getPlacesDetailedInfo(API_KEY, id)
+        return apiService.getPlacesDetailedInfo(API_KEY)
     }
 }
