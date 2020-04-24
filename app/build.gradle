@@ -4,6 +4,11 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+//Added new:
+apply plugin: 'androidx.navigation.safeargs'
+
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -25,6 +30,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -44,6 +52,24 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // Navigation component
+    implementation "android.arch.navigation:navigation-fragment:$rootProject.navVersion"
+    implementation "android.arch.navigation:navigation-ui:$rootProject.navVersion"
+    implementation "android.arch.navigation:navigation-runtime-ktx:$rootProject.navVersion"
+    implementation "android.arch.work:work-runtime-ktx:$rootProject.workVersion"
+// Anko
+    implementation "org.jetbrains.anko:anko:$rootProject.ankoVersion"
+    implementation "org.jetbrains.anko:anko-commons:$rootProject.ankoVersion"
+// Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
+// Picasso
+    implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
+// Databinding compiler
+    kapt "com.android.databinding:compiler:$rootProject.dataBindingCompilerVersion"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

@@ -34,7 +34,7 @@ interface OpenTripApiInterface {
     // WARNING: this POST request doesn't exist on the OpenTripMapApi, it is only a demo how to write POST request
     @POST("place/update/{id}")
     suspend fun createUpdatePlace(
-        @Path("id") id:String78,
+        @Path("id") id:String,
         @Body place:OpenTripDetailedObject
     )
 

@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.traveljournal.R
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.traveljournal.Location
-import com.example.traveljournal.LocationListAdapter
-import kotlinx.android.synthetic.main.fragment_top_locations.*
+import com.example.traveljournal.views.Location
+import com.example.traveljournal.adapters.LocationListAdapter
 
 
 class TopLocationsFragment: Fragment() {
@@ -36,7 +34,8 @@ class TopLocationsFragment: Fragment() {
 
 
         viewManager = LinearLayoutManager(getActivity())
-        viewAdapter = LocationListAdapter(locationList)
+        viewAdapter =
+            LocationListAdapter(locationList)
 
         recyclerView.layoutManager = viewManager
 
@@ -54,20 +53,25 @@ class TopLocationsFragment: Fragment() {
 
 
     fun addLocations() {
-        var loc1 = Location(1, "Location1", "Moldova", "str.Lalla",
-            "THis is a very beautiful location", 23, 54, 4.2F,"no image"
+        var loc1 = Location(
+            1, "Location1", "Moldova", "str.Lalla",
+            "THis is a very beautiful location", 23, 54, 4.2F, "no image"
         )
-        var loc2 = Location(2, "Location2", "Moldova", "str.Lalla",
-            "THis is a very beautiful location", 23, 54, 4.2F,"no image"
+        var loc2 = Location(
+            2, "Location2", "Moldova", "str.Lalla",
+            "THis is a very beautiful location", 23, 54, 4.2F, "no image"
         )
-        var loc3 = Location(3, "White house", "USA", "str.Lalla",
-            "THis is a very beautiful location", 23, 54, 4.2F,"no image"
+        var loc3 = Location(
+            3, "White house", "USA", "str.Lalla",
+            "THis is a very beautiful location", 23, 54, 4.2F, "no image"
         )
-        var loc4 = Location(4, "Orheiul Vechi", "Moldova", "str.Lalla",
-            "THis is a very beautiful location", 23, 54, 4.2F,"no image"
+        var loc4 = Location(
+            4, "Orheiul Vechi", "Moldova", "str.Lalla",
+            "THis is a very beautiful location", 23, 54, 4.2F, "no image"
         )
-        var loc5 = Location(5, "Louvre", "Paris", "str.Lalla",
-            "THis is a very beautiful location", 23, 54, 4.2F,"no image"
+        var loc5 = Location(
+            5, "Louvre", "Paris", "str.Lalla",
+            "THis is a very beautiful location", 23, 54, 4.2F, "no image"
         )
 
         locationList = ArrayList<Location>(10);

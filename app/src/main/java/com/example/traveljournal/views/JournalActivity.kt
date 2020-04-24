@@ -1,16 +1,10 @@
-package com.example.traveljournal
+package com.example.traveljournal.views
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
-import com.example.traveljournal.R.color.colorPrimaryLight
-import kotlinx.android.synthetic.main.activity_journal.*
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.traveljournal.R
 
 class JournalActivity : AppCompatActivity(), View.OnClickListener  {
 

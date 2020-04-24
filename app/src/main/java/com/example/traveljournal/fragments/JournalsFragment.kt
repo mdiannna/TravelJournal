@@ -9,8 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.traveljournal.*
-
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.traveljournal.adapters.JournalsGridAdapter
+import com.example.traveljournal.views.CreateJournalActivity
+import com.example.traveljournal.views.JournalActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,7 +49,13 @@ class JournalsFragment : Fragment(), View.OnClickListener  {
         var linearLayout:LinearLayout =  rootView.findViewById(R.id.journalLayout)
         // Create and populate GridView
         val gridview = rootView.findViewById<GridView>(R.id.gridview)
-        val adapter = getActivity()?.let { JournalsGridAdapter(it, R.layout.journal_item, itemList) }
+        val adapter = getActivity()?.let {
+            JournalsGridAdapter(
+                it,
+                R.layout.journal_item,
+                itemList
+            )
+        }
         gridview.adapter = adapter
 
 

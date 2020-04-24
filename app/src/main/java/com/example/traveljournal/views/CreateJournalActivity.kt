@@ -1,4 +1,4 @@
-package com.example.traveljournal
+package com.example.traveljournal.views
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.location.Location
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
@@ -17,18 +16,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.app.ActivityCompat
+import com.example.traveljournal.R
 import com.example.traveljournal.data.APIService
 import com.example.traveljournal.data.APIServiceImpl
 import com.example.traveljournal.data.models.OpenTripApiObject
 import com.example.traveljournal.data.models.OpenTripDetailedObject
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_create_journal.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit;
-
-import retrofit2.converter.gson.GsonConverterFactory
 
 class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     val PERMISSION_ID = 42
@@ -99,7 +95,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
             R.id.btnUploadPhoto -> {
 
             }
-            R.id.btnNextPage-> {
+            R.id.btnNextPage -> {
                 val intent = Intent(this, CreateJournalActivity::class.java).apply {
                     // putExtra(EXTRA_MESSAGE, "HELLO")
                 }
@@ -251,7 +247,9 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
             findViewById<TextView>(R.id.descriptionTextView).text = details.wikipediaExtracts.text
 //            TODO: set image from url (maybe using picasso)
-            findViewById<ImageView>(R.id.placeImage).setImageResource(R.drawable.louvre)
+            findViewById<ImageView>(R.id.placeImage).setImageResource(
+                R.drawable.louvre
+            )
 //            findViewById<ImageView>(R.id.placeImage).setImageURI(details.image)
 
         })

@@ -1,5 +1,6 @@
-package com.example.traveljournal
+package com.example.traveljournal.data
 
+import com.example.traveljournal.views.Location
 import com.google.gson.annotations.SerializedName
 
 data class DataLocations (
