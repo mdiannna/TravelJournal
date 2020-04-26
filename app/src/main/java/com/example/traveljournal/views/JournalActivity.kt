@@ -20,22 +20,6 @@ class JournalActivity : AppCompatActivity(), View.OnClickListener  {
                     "exhibited over am area of 72735 square meters. In 2019, the Louvre received" +
                     " 9.6 million visitors."
         }
-
-        // TODO: photo
-//        var buttonPrintJournal = Button(this)
-//        buttonPrintJournal.apply {
-//            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT)
-//            text = "Print journal"
-//            setAllCaps(false)
-//            textSize = 20f
-//            id = R.id.btnPrintJournal
-//        }
-//        buttonPrintJournal.setBackgroundColor(colorPrimaryLight)
-//
-//        buttonPrintJournal.setOnClickListener(this)
-//        journalLayout.addView(buttonPrintJournal)
-
     }
 
     override fun onClick(v:View?) {
