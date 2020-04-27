@@ -8,7 +8,8 @@ import retrofit2.http.*;
 
 interface OpenTripApiInterface {
     @GET("places/bbox")
-    suspend fun getPlacesByCoordinates(@Query("lon_min") lngMin:Double,
+//    suspend fun getPlacesByCoordinates(@Query("lon_min") lngMin:Double,
+    fun getPlacesByCoordinates(@Query("lon_min") lngMin:Double,
                                        @Query("lat_min") latMin:Double,
                                        @Query("lon_max") lngMax:Double,
                                        @Query("lat_max") latMax:Double,

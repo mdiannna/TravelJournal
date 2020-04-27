@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="top"
-    tools:context="com.example.traveljournal.fragments.AboutFragment">
+    tools:context="com.example.traveljournal.views.fragments.AboutFragment">
 
     <TextView
         android:id="@+id/textView"

@@ -33,7 +33,8 @@ class APIServiceImpl: APIService {
         return retrofit.create(service)
     }
 
-    override suspend fun getPlacesByCoordinates(
+//    override suspend fun getPlacesByCoordinates(
+    override  fun getPlacesByCoordinates(
         lngMin: Double,
         latMin: Double,
         lngMax: Double,

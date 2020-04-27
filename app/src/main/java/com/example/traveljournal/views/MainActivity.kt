@@ -3,6 +3,10 @@ package com.example.traveljournal.views
 //https://github.com/emedinaa/kotlin-mvvm/tree/master/KotlinMVVM
 //https://dzone.com/articles/introduction-to-android-app-development-with-kotli-5
 //https://www.raywenderlich.com/636803-mvvm-and-databinding-android-design-patterns#toc-anchor-006
+//https://proandroiddev.com/mvvm-architecture-viewmodel-and-livedata-part-1-604f50cda1
+//https://findnerd.com/list/view/How-to-use-MVVM-Architecture-with-rxjava-and-retrofit-in-Kotlin-/38353/
+//https://github.com/mayowa-egbewunmi/LocationUpdateWithLiveData/tree/master/app
+
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
