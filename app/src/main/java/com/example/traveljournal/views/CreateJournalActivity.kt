@@ -21,22 +21,25 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.traveljournal.R
 import com.example.traveljournal.data.APIService
 import com.example.traveljournal.data.APIServiceImpl
+import com.example.traveljournal.data.models.OpenTripApiFeature
 import com.example.traveljournal.data.models.OpenTripApiObject
 import com.example.traveljournal.data.models.OpenTripDetailedObject
 import com.example.traveljournal.viewmodels.CreateJournalViewModel
+import com.example.traveljournal.viewmodels.LocationViewModel
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_create_journal.*
+import kotlinx.android.synthetic.main.item_location.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     val PERMISSION_ID = 42
-//    lateinit var mFusedLocationClient: FusedLocationProviderClient
     private var obtainedLatitude: Double? = 0.0
     private var obtainedLongitude: Double? = 0.0
 
     private val apiService: APIService = APIServiceImpl()
-    private lateinit var viewModel: CreateJournalViewModel
+    private lateinit var locationViewModel: LocationViewModel
+    private lateinit var createJournalViewModel: CreateJournalViewModel
 
     override fun onStart() {
         super.onStart()
@@ -45,7 +48,8 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 
     private fun invokeLocationAction() {
         when {
-            isLocationEnabled() -> startLocationUpdate()
+//            isLocationEnabled() -> startLocationUpdate()
+            isLocationEnabled() -> startPlaceDescriptionUpdate()
         }
     }
 
@@ -96,22 +100,25 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         createJournalLayout.addView(buttonSaveJournal)
         createJournalLayout.addView(buttonUploadPhoto)
 
-        // Get Location - To be tested
-        // https://www.androdocs.com/kotlin/getting-current-location-latitude-longitude-in-android-using-kotlin.html
-
         //TODO
-//        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        //        // getLastLocation()
-
-        viewModel = ViewModelProviders.of(this).get(CreateJournalViewModel::class.java)
-
-        updateDescriptionByLocation(obtainedLatitude, obtainedLongitude)
+        locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
+        createJournalViewModel = ViewModelProviders.of(this).get(CreateJournalViewModel::class.java)
     }
 
-    private fun startLocationUpdate() {
-        viewModel.getLocationData().observe(this, Observer {
+//    private fun startLocationUpdate() {
+//        locationViewModel.getLocationData().observe(this, Observer {
+//            findViewById<TextView>(R.id.latTextView).text = it.latitude.toString()
+//            findViewById<TextView>(R.id.lonTextView).text = it.longitude.toString()
+//            this.obtainedLatitude = it.latitude
+//            this.obtainedLongitude = it.longitude
+//        })
+//    }
+
+    private fun startPlaceDescriptionUpdate() {
+        locationViewModel.getLocationData().observe(this, Observer {
             findViewById<TextView>(R.id.latTextView).text = it.latitude.toString()
             findViewById<TextView>(R.id.lonTextView).text = it.longitude.toString()
+            updateDescriptionByLocationVM(it.latitude, it.longitude)
         })
     }
 
@@ -247,133 +254,161 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 //        return this.obtainedLongitude
 //    }
 
-    private fun getPlacesDetailedInfo(id: String) {
-        GlobalScope.launch{
-            kotlin.runCatching {
-                apiService.getPlacesDetailedInfo(id)
-            }.onSuccess{
-                onPlacesDetailsFetched(it)
-            }.onFailure{
-                onPlacesDetailsFetchedError(it)
-            }
-        }
-    }
-
-
-    private fun onPlacesDetailsFetched(details: OpenTripDetailedObject) {
-//      For easier debug:
-        println("DETAILS!!!")
-        println(details)
-        println(details.name)
-        println(details.wikipediaExtracts.text)
-        println(details.image)
-
-//        https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
-        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
-            findViewById<TextView>(R.id.descriptionTextView).text = details.wikipediaExtracts.text
-//            TODO: set image from url (maybe using picasso)
-            findViewById<ImageView>(R.id.placeImage).setImageResource(
-                R.drawable.louvre
-            )
-//            findViewById<ImageView>(R.id.placeImage).setImageURI(details.image)
-
-        })
-    }
-
-    private fun onPlacesDetailsFetchedError(error: Throwable) {
-//      For easier debug:
-        println("ERROR!!!")
-        print(error)
-        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
-            findViewById<TextView>(R.id.descriptionTextView).text = "Error:" + error
-        })
-    }
-
-
-    private fun getPlacesByCoordinates(lngMin: Double,
-                                       latMin: Double,
-                                       lngMax:Double,
-                                       latMax: Double,
-                                       kinds:String) :String {
-        //TODO: Activity is not the best place for calling API request, even it is possible to perform
-        // such operation in activity, it is recomended to extract your business logic into separate component
-        var result:String = ""
-
-        GlobalScope.launch{
-            kotlin.runCatching {
-                apiService.getPlacesByCoordinates(lngMin, latMin, lngMax, latMax,kinds)
-            }.onSuccess{
-               result = onPlacesFetched(it)
-               print(it)
-            }.onFailure{
-                result = onPlacesFetchedError(it)
-            }
-        }
-
-        return result
-    }
-
-    private fun onPlacesFetched(places: OpenTripApiObject):String {
-//      For easier debug:
-        println("PLACES!!!")
-        println("PLACES!!!")
-        println("PLACES!!!")
-        println(places)
-        println(places.features)
-
-//        https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
-        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
-            findViewById<TextView>(R.id.nameTextView).text =
-                places.features[0].properties.name + " (" +places.features[0].properties.kinds + ")"
-            // TODO: get description of place with correct id
-             getPlacesDetailedInfo(places.features[0].properties.id)
-//            getPlacesDetailedInfo(id)
-        })
-
-        return places.toString()
+//    private fun getPlacesDetailedInfo(id: String) {
+//        GlobalScope.launch{
+//            kotlin.runCatching {
+//                apiService.getPlacesDetailedInfo(id)
+//            }.onSuccess{
+//                onPlacesDetailsFetched(it)
+//            }.onFailure{
+//                onPlacesDetailsFetchedError(it)
+//            }
+//        }
+//    }
 //
-//        TODO: another call to api with id to get description
-    }
+//
+//    private fun onPlacesDetailsFetched(details: OpenTripDetailedObject) {
+////      For easier debug:
+//        println("DETAILS!!!")
+//        println(details)
+//        println(details.name)
+//        println(details.wikipediaExtracts.text)
+//        println(details.image)
+//
+////        https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
+//        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
+//            findViewById<TextView>(R.id.descriptionTextView).text = details.wikipediaExtracts.text
+////            TODO: set image from url (maybe using picasso)
+//            findViewById<ImageView>(R.id.placeImage).setImageResource(
+//                R.drawable.louvre
+//            )
+////            findViewById<ImageView>(R.id.placeImage).setImageURI(details.image)
+//
+//        })
+//    }
+//
+//    private fun onPlacesDetailsFetchedError(error: Throwable) {
+////      For easier debug:
+//        println("ERROR!!!")
+//        print(error)
+//        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
+//            findViewById<TextView>(R.id.descriptionTextView).text = "Error:" + error
+//        })
+//    }
+//
+//
+//    private fun getPlacesByCoordinates(lngMin: Double,
+//                                       latMin: Double,
+//                                       lngMax:Double,
+//                                       latMax: Double,
+//                                       kinds:String) :String {
+//        //TODO: Activity is not the best place for calling API request, even it is possible to perform
+//        // such operation in activity, it is recomended to extract your business logic into separate component
+//
+//        GlobalScope.launch{
+////            kotlin.runCatching {
+////                apiService.getPlacesByCoordinates(lngMin, latMin, lngMax, latMax,kinds)
+////            }.onSuccess{
+////               result = onPlacesFetched(it)
+////               print(it)
+////            }.onFailure{
+////                result = onPlacesFetchedError(it)
+////            }
+////        }
+//
+//        return result
+//    }
+//
+//    private fun onPlacesFetched(places: OpenTripApiObject):String {
+////      For easier debug:
+//        println("PLACES!!!")
+//        println("PLACES!!!")
+//        println("PLACES!!!")
+//        println(places)
+//        println(places.features)
+//
+////        https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
+//        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
+//            findViewById<TextView>(R.id.nameTextView).text =
+//                places.features[0].properties.name + " (" +places.features[0].properties.kinds + ")"
+//            // TODO: get description of place with correct id
+//             getPlacesDetailedInfo(places.features[0].properties.id)
+////            getPlacesDetailedInfo(id)
+//        })
+//
+//        return places.toString()
+////
+////        TODO: another call to api with id to get description
+//    }
+//
+//    private fun onPlacesFetchedError(error: Throwable):String {
+////      For easier debug:
+//        println("ERROR!!!")
+//        println("ERROR!!!")
+//        println("ERROR!!!")
+//        print(error)
+//        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
+//            findViewById<TextView>(R.id.nameTextView).text = "Error:" + error
+//        })
+//
+//        return "Error:" + error
+//    }
 
-    private fun onPlacesFetchedError(error: Throwable):String {
-//      For easier debug:
-        println("ERROR!!!")
-        println("ERROR!!!")
-        println("ERROR!!!")
-        print(error)
-        this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
-            findViewById<TextView>(R.id.nameTextView).text = "Error:" + error
-        })
 
-        return "Error:" + error
-    }
-
-    private val LOCATION_DELTA = 0.01
-
-    private fun updateDescriptionByLocation(lat:Double?, lng:Double?) {
-        //TODO: Call fetching of data from API
-        // getPlacesByCoordinates() Add all required parameters
-
+    private fun updateDescriptionByLocationVM(lat:Double?, lng:Double?) {
         var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
         var <TextView> nameTextView = findViewById<TextView>(R.id.nameTextView)
-
-        nameTextView.text = "Getting places"
-        descriptionTextView.text = "Getting places"
 
         if(lat==null || lng==null || lat < 0.001  || lng < 0.001)  {
             descriptionTextView.text = "No latitude or longitude."
             nameTextView.text = "No latitude or longitude."
         } else {
-            println("Lat:");
-            print(lat);
-            println("Lng:");
-            print(lng);
-            println("Max Lat:");
-            print(lat+LOCATION_DELTA);
+            descriptionTextView.text = "Waiting..."
+//            TODO: observer??? wait to complete???
+//            var obj: OpenTripApiFeature? = createJournalViewModel.getOpenTripApiObjData(lat, lng)
+//
+//            if(obj!=null) {
+//                descriptionTextView.text = obj.properties.name + "(" + obj.properties.kinds + ")"
+//            }
 
-             getPlacesByCoordinates( lng-LOCATION_DELTA,lat-LOCATION_DELTA,
-             lng+LOCATION_DELTA, lat+LOCATION_DELTA,
-             "interesting_places")
+            createJournalViewModel.getOpenTripApiObjData(lat, lng)?.observe(this, Observer{
+                descriptionTextView.text = "Waiting...null..."
+                if(it!=null) {
+                    descriptionTextView.text = it.properties.name + "(" + it.properties.kinds + ")"
+                }
+
+            })
+
         }
     }
+
+//
+////    private val LOCATION_DELTA = 0.01
+//
+//    private fun updateDescriptionByLocation(lat:Double?, lng:Double?) {
+//        //TODO: Call fetching of data from API
+//        // getPlacesByCoordinates() Add all required parameters
+//
+//        var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
+//        var <TextView> nameTextView = findViewById<TextView>(R.id.nameTextView)
+//
+//        nameTextView.text = "Getting places"
+//        descriptionTextView.text = "Getting places"
+//
+//        if(lat==null || lng==null || lat < 0.001  || lng < 0.001)  {
+//            descriptionTextView.text = "No latitude or longitude."
+//            nameTextView.text = "No latitude or longitude."
+//        } else {
+//            println("Lat:");
+//            print(lat);
+//            println("Lng:");
+//            print(lng);
+//            println("Max Lat:");
+//            print(lat+LOCATION_DELTA);
+//
+//             getPlacesByCoordinates( lng-LOCATION_DELTA,lat-LOCATION_DELTA,
+//             lng+LOCATION_DELTA, lat+LOCATION_DELTA,
+//             "interesting_places")
+//        }
+//    }
 }

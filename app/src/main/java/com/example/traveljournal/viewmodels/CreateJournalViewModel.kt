@@ -1,5 +1,5 @@
 package com.example.traveljournal.viewmodels
-
+//https://developer.android.com/topic/libraries/architecture/coroutines
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -17,40 +17,82 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.traveljournal.R
 import com.example.traveljournal.data.APIServiceImpl
 import com.example.traveljournal.data.LocationLiveData
+import com.example.traveljournal.data.models.OpenTripApiFeature
 import com.example.traveljournal.data.models.OpenTripApiObject
 import com.example.traveljournal.data.models.OpenTripDetailedObject
 import com.google.android.gms.location.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CreateJournalViewModel(application: Application) : AndroidViewModel(application) {
-    private val locationData = LocationLiveData(application)
 
-    fun getLocationData() = locationData
+    private var response: MutableLiveData<OpenTripApiFeature>? = MutableLiveData()
 
-//    lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private val mService  =  APIServiceImpl()
+    private val LOCATION_DELTA = 0.01
 
-    //    TODO
-private val mService  =  APIServiceImpl()
-//    fun getAndroidData() : MutableLiveData<List<OpenTripDetailedObject>>? {
-//    fun getAndroidData() : MutableLiveData<List<OpenTripApiObject>>? {
-    fun getAndroidData() : OpenTripApiObject? {
+    fun getOpenTripApiObjData(lat:Double?, lng:Double?) : MutableLiveData<OpenTripApiFeature>? {
         Log.e("getOpenTripApiObjectD","yes")
 
-        var kinds = ""
-        var latMax = 0.0
-        var latMin = 0.0
-        var lngMax = 0.0
-        var lngMin = 0.0
-        var lat = 0.0
-        var lng = 0.0
+        if(lat==null || lng==null || lat < 0.001  || lng < 0.001)  {
+            return null
+        }
 
+        var lngMin = lng-LOCATION_DELTA
+        var latMin = lat-LOCATION_DELTA
+        var lngMax = lng+LOCATION_DELTA
+        var latMax = lat+LOCATION_DELTA
+        var kinds = "interesting_places"
 
+//***************
+// Tried Method 1
+//***************
+        GlobalScope.launch{
+            kotlin.runCatching {
+                mService.getPlacesByCoordinates(lngMin, latMin, lngMax, latMax,kinds)
+            }.onSuccess{
+               response = onPlacesFetched(it)
+               print(it)
+            }.onFailure{
+                onPlacesFetchedError(it)
+            }
+        }
 
-        return mService.getPlacesByCoordinates( lngMin, latMin, lngMax,latMax, kinds)
+//***************
+// Tried Method 2
+//***************
+//        response?.value = mService.getPlacesByCoordinates( lngMin, latMin, lngMax,latMax, kinds).features[0]
+
+        return response
+    }
+
+    private fun onPlacesFetched(places: OpenTripApiObject):MutableLiveData<OpenTripApiFeature>? {
+//      For easier debug:
+        println("PLACES!!!")
+        println("PLACES!!!")
+        println("PLACES!!!")
+        println(places)
+        println(places.features)
+
+        response?.value = places.features[0]
+//        return places.features[0]
+
+        return response
+    }
+
+    private fun onPlacesFetchedError(error: Throwable):String {
+        println("ERROR!!!")
+        println("ERROR!!!")
+        println("ERROR!!!")
+        print(error)
+
+        return "Error:" + error
     }
 
 }
