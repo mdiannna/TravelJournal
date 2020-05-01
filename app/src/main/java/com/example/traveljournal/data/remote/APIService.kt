@@ -1,4 +1,4 @@
-package com.example.traveljournal.data
+package com.example.traveljournal.data.remote
 
 import com.example.traveljournal.data.models.OpenTripApiObject
 import com.example.traveljournal.data.models.OpenTripDetailedObject

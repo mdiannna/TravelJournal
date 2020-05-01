@@ -1,17 +1,13 @@
 package com.example.traveljournal.views
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
 import android.provider.AlarmClock.EXTRA_MESSAGE
-import android.provider.Settings
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -19,25 +15,19 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.traveljournal.R
-import com.example.traveljournal.data.APIService
-import com.example.traveljournal.data.APIServiceImpl
-import com.example.traveljournal.data.models.OpenTripApiFeature
-import com.example.traveljournal.data.models.OpenTripApiObject
-import com.example.traveljournal.data.models.OpenTripDetailedObject
+import com.example.traveljournal.data.remote.APIService
+import com.example.traveljournal.data.remote.APIServiceImpl
 import com.example.traveljournal.viewmodels.CreateJournalViewModel
 import com.example.traveljournal.viewmodels.LocationViewModel
-import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_create_journal.*
-import kotlinx.android.synthetic.main.item_location.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     val PERMISSION_ID = 42
     private var obtainedLatitude: Double? = 0.0
     private var obtainedLongitude: Double? = 0.0
 
-    private val apiService: APIService = APIServiceImpl()
+//    private val apiService: APIService =
+//        APIServiceImpl()
     private lateinit var locationViewModel: LocationViewModel
     private lateinit var createJournalViewModel: CreateJournalViewModel
 
@@ -47,9 +37,10 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     }
 
     private fun invokeLocationAction() {
-        if (checkPermissions()) {
-            if (isLocationEnabled()) {
-                startPlaceDescriptionUpdate()
+        if (this.checkPermissions()) {
+            if (this.isLocationEnabled()) {
+                startLocationUpdate()
+//                startPlaceDescriptionUpdate()
             }
         } else {
             requestPermissions()
@@ -106,24 +97,57 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         //TODO
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
         createJournalViewModel = ViewModelProviders.of(this).get(CreateJournalViewModel::class.java)
+
+        startPlaceDescriptionUpdate()
     }
 
-//    private fun startLocationUpdate() {
+    private fun startLocationUpdate() {
+        locationViewModel.getLocationData().observe(this, Observer {
+
+            this.obtainedLatitude = it.latitude
+            this.obtainedLongitude = it.longitude
+            findViewById<TextView>(R.id.latTextView).text = this.obtainedLatitude.toString()
+            findViewById<TextView>(R.id.lonTextView).text = this.obtainedLongitude.toString()
+//            this.startPlaceDescriptionUpdate(it.latitude, it.longitude)
+//            Toast.makeText(this,"Location updated!",Toast.LENGTH_LONG).show()
+        })
+    }
+
+//    private fun startPlaceDescriptionUpdate() {
 //        locationViewModel.getLocationData().observe(this, Observer {
 //            findViewById<TextView>(R.id.latTextView).text = it.latitude.toString()
 //            findViewById<TextView>(R.id.lonTextView).text = it.longitude.toString()
 //            this.obtainedLatitude = it.latitude
 //            this.obtainedLongitude = it.longitude
+//            updateDescriptionByLocationVM(it.latitude, it.longitude)
 //        })
 //    }
 
     private fun startPlaceDescriptionUpdate() {
-        locationViewModel.getLocationData().observe(this, Observer {
-            findViewById<TextView>(R.id.latTextView).text = it.latitude.toString()
-            findViewById<TextView>(R.id.lonTextView).text = it.longitude.toString()
-            updateDescriptionByLocationVM(it.latitude, it.longitude)
+        var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
+        var <TextView> nameTextView = findViewById<TextView>(R.id.nameTextView)
+        var lat = this.obtainedLatitude
+        var lng = this.obtainedLongitude
+
+        if(lat==null || lng==null || lat == 0.0  || lng ==0.0)  {
+            descriptionTextView.text = "No latitude or longitude."
+            nameTextView.text = "No latitude or longitude."
+        } else {
+            descriptionTextView.text = "Waiting..."
+
+//            TODO
+        createJournalViewModel!!.getPlacesByCoordinatesFromServer(lat, lng).observe(this, androidx.lifecycle.Observer {
+//        createJournalViewModel!!.response.observe(this, androidx.lifecycle.Observer {
+            descriptionTextView.text = it.properties.name + "(" + it.properties.kinds + ", " + it.properties.rate + ")"
+            Toast.makeText(this,it.properties.name ,Toast.LENGTH_LONG).show()
+
         })
-    }
+       createJournalViewModel!!.errorMessage.observe(this, androidx.lifecycle.Observer {
+            Toast.makeText(this,it,Toast.LENGTH_LONG).show()
+        })
+
+    }}
+
 
     override fun onClick(v:View?) {
         when(v?.id) {
@@ -158,7 +182,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
             )
     }
 //
-    private fun checkPermissions(): Boolean {
+   private fun checkPermissions(): Boolean {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             return true
@@ -357,32 +381,32 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 //        return "Error:" + error
 //    }
 
-
-    private fun updateDescriptionByLocationVM(lat:Double?, lng:Double?) {
-        var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
-        var <TextView> nameTextView = findViewById<TextView>(R.id.nameTextView)
-
-        if(lat==null || lng==null || lat < 0.001  || lng < 0.001)  {
-            descriptionTextView.text = "No latitude or longitude."
-            nameTextView.text = "No latitude or longitude."
-        } else {
-            descriptionTextView.text = "Waiting..."
-//            TODO: observer??? wait to complete???
-//            var obj: OpenTripApiFeature? = createJournalViewModel.getOpenTripApiObjData(lat, lng)
 //
-//            if(obj!=null) {
-//                descriptionTextView.text = obj.properties.name + "(" + obj.properties.kinds + ")"
-//            }
-
-            createJournalViewModel.getOpenTripApiObjData(lat, lng)?.observe(this, Observer{
-                descriptionTextView.text = "Waiting...null..."
-                if(it!=null) {
-                    descriptionTextView.text = it.properties.name + "(" + it.properties.kinds + ")"
-                }
-
-            })
-
-        }
+//    private fun updateDescriptionByLocationVM(lat:Double?, lng:Double?) {
+//        var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
+//        var <TextView> nameTextView = findViewById<TextView>(R.id.nameTextView)
+//
+//        if(lat==null || lng==null || lat < 0.001  || lng < 0.001)  {
+//            descriptionTextView.text = "No latitude or longitude."
+//            nameTextView.text = "No latitude or longitude."
+//        } else {
+//            descriptionTextView.text = "Waiting..."
+////            TODO: observer??? wait to complete???
+////            var obj: OpenTripApiFeature? = createJournalViewModel.getOpenTripApiObjData(lat, lng)
+////
+////            if(obj!=null) {
+////                descriptionTextView.text = obj.properties.name + "(" + obj.properties.kinds + ")"
+////            }
+//
+////            createJournalViewModel.getOpenTripApiObjData(lat, lng)?.observe(this, Observer{
+////                descriptionTextView.text = "Waiting...null..."
+////                if(it!=null) {
+////                    descriptionTextView.text = it.properties.name + "(" + it.properties.kinds + ")"
+////                }
+////
+////            })
+//
+//        }
     }
 
 //
@@ -414,4 +438,4 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 //             "interesting_places")
 //        }
 //    }
-}
+
