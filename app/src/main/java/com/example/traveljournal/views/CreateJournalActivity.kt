@@ -8,6 +8,7 @@ import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -21,7 +22,15 @@ import com.example.traveljournal.viewmodels.CreateJournalViewModel
 import com.example.traveljournal.viewmodels.LocationViewModel
 import kotlinx.android.synthetic.main.activity_create_journal.*
 
-class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
+class CreateJournalActivity : AppCompatActivity(), View.OnClickListener ,  BaseActivity<CreateJournalNavigator, CreateJournalViewModel>(), CreateJournalNavigator  {
+    private lateinit var createJournalViewModel: CreateJournalViewModel
+
+    override fun getViewModels(): CreateJournalViewModel? {
+        viewModel = ViewModelProviders.of(this).get(CreateJournalViewModel::class.java)
+        viewModel!!.setNavigator(this)
+        return viewModel
+    }
+
     val PERMISSION_ID = 42
     private var obtainedLatitude: Double? = 0.0
     private var obtainedLongitude: Double? = 0.0
@@ -29,7 +38,6 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 //    private val apiService: APIService =
 //        APIServiceImpl()
     private lateinit var locationViewModel: LocationViewModel
-    private lateinit var createJournalViewModel: CreateJournalViewModel
 
     override fun onStart() {
         super.onStart()
@@ -93,12 +101,13 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
         createJournalLayout.addView(buttonNextPage)
         createJournalLayout.addView(buttonSaveJournal)
         createJournalLayout.addView(buttonUploadPhoto)
-
+        Log.d("TEST LOG", "test log")
         //TODO
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
         createJournalViewModel = ViewModelProviders.of(this).get(CreateJournalViewModel::class.java)
-
-        startPlaceDescriptionUpdate()
+        createJournalViewModel.setNavigator(this)
+//        TODO:
+        startPlaceDescriptionUpdate(23.0, 45.3)
     }
 
     private fun startLocationUpdate() {
@@ -108,7 +117,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
             this.obtainedLongitude = it.longitude
             findViewById<TextView>(R.id.latTextView).text = this.obtainedLatitude.toString()
             findViewById<TextView>(R.id.lonTextView).text = this.obtainedLongitude.toString()
-//            this.startPlaceDescriptionUpdate(it.latitude, it.longitude)
+            this.startPlaceDescriptionUpdate(it.latitude, it.longitude)
 //            Toast.makeText(this,"Location updated!",Toast.LENGTH_LONG).show()
         })
     }
@@ -123,30 +132,34 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 //        })
 //    }
 
-    private fun startPlaceDescriptionUpdate() {
+    private fun startPlaceDescriptionUpdate(lat:Double?, lng:Double?) {
         var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
         var <TextView> nameTextView = findViewById<TextView>(R.id.nameTextView)
-        var lat = this.obtainedLatitude
-        var lng = this.obtainedLongitude
+//        var lat = this.obtainedLatitude
+//        var lng = this.obtainedLongitude
 
-        if(lat==null || lng==null || lat == 0.0  || lng ==0.0)  {
-            descriptionTextView.text = "No latitude or longitude."
-            nameTextView.text = "No latitude or longitude."
-        } else {
-            descriptionTextView.text = "Waiting..."
+
+//        if(lat==null || lng==null || lat == 0.0  || lng ==0.0)  {
+//            descriptionTextView.text = "---No latitude or longitude."
+//            nameTextView.text = "---No latitude or longitude."
+//        } else {
+//            descriptionTextView.text = "Waiting..."
 
 //            TODO
-        createJournalViewModel!!.getPlacesByCoordinatesFromServer(lat, lng).observe(this, androidx.lifecycle.Observer {
-//        createJournalViewModel!!.response.observe(this, androidx.lifecycle.Observer {
-            descriptionTextView.text = it.properties.name + "(" + it.properties.kinds + ", " + it.properties.rate + ")"
-            Toast.makeText(this,it.properties.name ,Toast.LENGTH_LONG).show()
+
+//            locationViewModel.getLocationData().observe(this, Observer {
+
+//            createJournalViewModel.getPlacesByCoordinatesFromServer(lat, lng).observe(this, Observer {
+        createJournalViewModel!!.response.observe(this, androidx.lifecycle.Observer {
+            this.descriptionTextView.text = it.properties.name + "(" + it.properties.kinds + ", " + it.properties.rate + ")"
+                Toast.makeText(this,it.properties.name ,Toast.LENGTH_LONG).show()
 
         })
        createJournalViewModel!!.errorMessage.observe(this, androidx.lifecycle.Observer {
             Toast.makeText(this,it,Toast.LENGTH_LONG).show()
         })
 
-    }}
+    }
 
 
     override fun onClick(v:View?) {
@@ -168,6 +181,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
             }
             R.id.buttonUpdateLocation -> {
                 invokeLocationAction()
+//                startPlaceDescriptionUpdate()
             }
             else -> {
 
@@ -197,6 +211,15 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
             PERMISSION_ID
         )
     }
+
+    override fun showData() {
+    }
+
+    override fun showLoading() {
+
+    }
+
+
 //
 //
 //    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
