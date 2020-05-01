@@ -47,9 +47,12 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     }
 
     private fun invokeLocationAction() {
-        when {
-//            isLocationEnabled() -> startLocationUpdate()
-            isLocationEnabled() -> startPlaceDescriptionUpdate()
+        if (checkPermissions()) {
+            if (isLocationEnabled()) {
+                startPlaceDescriptionUpdate()
+            }
+        } else {
+            requestPermissions()
         }
     }
 
@@ -155,21 +158,21 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
             )
     }
 //
-//    private fun checkPermissions(): Boolean {
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-//            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-//            return true
-//        }
-//        return false
-//    }
-//
-//    private fun requestPermissions() {
-//        ActivityCompat.requestPermissions(
-//            this,
-//            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
-//            PERMISSION_ID
-//        )
-//    }
+    private fun checkPermissions(): Boolean {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            return true
+        }
+        return false
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            PERMISSION_ID
+        )
+    }
 //
 //
 //    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
