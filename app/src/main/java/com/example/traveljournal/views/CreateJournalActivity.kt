@@ -96,6 +96,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener {
 
         var buttonUpdateLocation = findViewById<Button>(R.id.buttonUpdateLocation)
 
+        buttonUpdateLocation.setOnClickListener(this)
         buttonUploadPhoto.setOnClickListener(this)
         buttonNextPage.setOnClickListener(this)
         buttonSaveJournal.setOnClickListener(this)
@@ -103,12 +104,9 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener {
         createJournalLayout.addView(buttonNextPage)
         createJournalLayout.addView(buttonSaveJournal)
         createJournalLayout.addView(buttonUploadPhoto)
-//        Log.d("TEST LOG", "test log")
 
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
         createJournalViewModel = ViewModelProviders.of(this).get(CreateJournalViewModel::class.java)
-//        TODO:
-//        startPlaceDescriptionUpdate(23.0, 45.3)
     }
 
     private fun startLocationUpdate() {
@@ -118,40 +116,13 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener {
             this.obtainedLongitude = it.longitude
             findViewById<TextView>(R.id.latTextView).text = this.obtainedLatitude.toString()
             findViewById<TextView>(R.id.lonTextView).text = this.obtainedLongitude.toString()
+
             updateDescriptionByLocation(it.latitude, it.longitude)
-//            this.startPlaceDescriptionUpdate(it.latitude, it.longitude)
-//            Toast.makeText(this,"Location updated!",Toast.LENGTH_LONG).show()
         })
     }
 
-//    private fun startPlaceDescriptionUpdate() {
-//        locationViewModel.getLocationData().observe(this, Observer {
-//            findViewById<TextView>(R.id.latTextView).text = it.latitude.toString()
-//            findViewById<TextView>(R.id.lonTextView).text = it.longitude.toString()
-//            this.obtainedLatitude = it.latitude
-//            this.obtainedLongitude = it.longitude
-//            updateDescriptionByLocationVM(it.latitude, it.longitude)
-//        })
-//    }
-
+    // Not working with the ViewModel Observer and retrofit and coroutines
     private fun startPlaceDescriptionUpdate(lat: Double?, lng: Double?) {
-        var <TextView> descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
-        var <TextView> nameTextView = findViewById<TextView>(R.id.nameTextView)
-//        var lat = this.obtainedLatitude
-//        var lng = this.obtainedLongitude
-
-
-//        if(lat==null || lng==null || lat == 0.0  || lng ==0.0)  {
-//            descriptionTextView.text = "---No latitude or longitude."
-//            nameTextView.text = "---No latitude or longitude."
-//        } else {
-//            descriptionTextView.text = "Waiting..."
-
-//            TODO
-
-//            locationViewModel.getLocationData().observe(this, Observer {
-
-//            createJournalViewModel.getPlacesByCoordinatesFromServer(lat, lng).observe(this, Observer {
         createJournalViewModel!!.response.observe(this, androidx.lifecycle.Observer {
             this.descriptionTextView.text =
                 it.properties.name + "(" + it.properties.kinds + ", " + it.properties.rate + ")"
@@ -161,7 +132,6 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener {
         createJournalViewModel!!.errorMessage.observe(this, androidx.lifecycle.Observer {
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         })
-
     }
 
 
@@ -171,9 +141,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.btnNextPage -> {
-                val intent = Intent(this, CreateJournalActivity::class.java).apply {
-                    // putExtra(EXTRA_MESSAGE, "HELLO")
-                }
+                val intent = Intent(this, CreateJournalActivity::class.java)
                 startActivity(intent)
             }
             R.id.btnSaveJournal -> {
@@ -184,7 +152,7 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.buttonUpdateLocation -> {
                 invokeLocationAction()
-//                startPlaceDescriptionUpdate()
+
             }
             else -> {
 
@@ -262,34 +230,30 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun onPlacesDetailsFetched(details: OpenTripDetailedObject) {
-//      For easier debug:
         println("DETAILS!!!")
         println(details)
         println(details.name)
         println(details.wikipediaExtracts.text)
         println(details.image)
 
-//        https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
+        //  https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
         this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
             findViewById<TextView>(R.id.descriptionTextView).text = details.wikipediaExtracts.text
-//            TODO: set image from url (maybe using picasso)
+            //   TODO: set image from url (maybe using picasso)
             findViewById<ImageView>(R.id.placeImage).setImageResource(
                 R.drawable.louvre
             )
-//            findViewById<ImageView>(R.id.placeImage).setImageURI(details.image)
-
         })
     }
 
     private fun onPlacesDetailsFetchedError(error: Throwable) {
-//      For easier debug:
         println("ERROR!!!")
         print(error)
+
         this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
             findViewById<TextView>(R.id.descriptionTextView).text = "Error:" + error
         })
     }
-
 
     private fun getPlacesByCoordinates(
         lngMin: Double,
@@ -317,29 +281,24 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun onPlacesFetched(places: OpenTripApiObject): String {
-//      For easier debug:
         println("PLACES!!!")
         println("PLACES!!!")
         println("PLACES!!!")
         println(places)
         println(places.features)
 
-//        https://www.tutorialkart.com/kotlin-android/original-thread-created-view-hierarchy-can-touch-views/
         this@CreateJournalActivity.runOnUiThread(java.lang.Runnable {
             findViewById<TextView>(R.id.nameTextView).text =
                 places.features[0].properties.name + " (" + places.features[0].properties.kinds + ")"
             // TODO: get description of place with correct id
             getPlacesDetailedInfo(places.features[0].properties.id)
-//            getPlacesDetailedInfo(id)
+            //  getPlacesDetailedInfo(id)
         })
 
         return places.toString()
-//
-//        TODO: another call to api with id to get description
     }
 
     private fun onPlacesFetchedError(error: Throwable): String {
-//      For easier debug:
         println("ERROR!!!")
         println("ERROR!!!")
         println("ERROR!!!")

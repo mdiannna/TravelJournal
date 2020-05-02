@@ -3,12 +3,9 @@ package com.example.traveljournal.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.traveljournal.views.Location
+import com.example.traveljournal.data.models.Location
 
 class TopLocationsViewModel(application: Application) : AndroidViewModel(application) {
-//    private lateinit var locationList: ArrayList<Location>;
     private lateinit var locationList: ArrayList<Location>;
 
     fun getLocationList():ArrayList<Location> {

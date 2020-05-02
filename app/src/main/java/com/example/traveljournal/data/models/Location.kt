@@ -1,4 +1,4 @@
-package com.example.traveljournal.views
+package com.example.traveljournal.data.models
 import com.google.gson.annotations.SerializedName
 
 data class Location (

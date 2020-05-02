@@ -1,5 +1,5 @@
 package com.example.traveljournal.adapters
-import com.example.traveljournal.views.Location
+import com.example.traveljournal.data.models.Location
 //import com.example.traveljournal.util.loadImage
 
 
