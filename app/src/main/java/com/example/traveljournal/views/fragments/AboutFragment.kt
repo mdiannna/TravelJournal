@@ -1,4 +1,4 @@
-package com.example.traveljournal.fragments
+package com.example.traveljournal.views.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

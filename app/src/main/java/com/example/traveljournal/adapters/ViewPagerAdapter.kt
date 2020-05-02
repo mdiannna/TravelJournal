@@ -3,10 +3,10 @@ package com.example.traveljournal.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.traveljournal.fragments.AboutFragment
-import com.example.traveljournal.fragments.MapFragment
-import com.example.traveljournal.fragments.TopLocationsFragment
-import com.example.traveljournal.fragments.JournalsFragment
+import com.example.traveljournal.views.fragments.AboutFragment
+import com.example.traveljournal.views.fragments.MapFragment
+import com.example.traveljournal.views.fragments.TopLocationsFragment
+import com.example.traveljournal.views.fragments.JournalsFragment
 
 
 class ViewPagerAdapter(fragmentManager: FragmentManager):

@@ -1,4 +1,4 @@
-package com.example.traveljournal
+package com.example.traveljournal.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.traveljournal.R
 
 internal class JournalsGridAdapter internal constructor(context: Context, private val resource:Int,
                                                         private val itemList:Array<String>?
@@ -20,7 +21,8 @@ internal class JournalsGridAdapter internal constructor(context: Context, privat
         var holder: ItemHolder
         if(convertView==null) {
             convertView = LayoutInflater.from(context).inflate(resource, null)
-            holder = ItemHolder()
+            holder =
+                ItemHolder()
             holder.name = convertView!!.findViewById(R.id.thumbnailTextView)
             holder.icon = convertView.findViewById(R.id.thumbnailIcon)
             convertView.tag = holder

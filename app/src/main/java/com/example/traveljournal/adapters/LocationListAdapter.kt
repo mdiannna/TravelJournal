@@ -1,5 +1,5 @@
-package com.example.traveljournal
-import com.example.traveljournal.Location
+package com.example.traveljournal.adapters
+import com.example.traveljournal.data.models.Location
 //import com.example.traveljournal.util.loadImage
 
 
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.traveljournal.R
 import kotlinx.android.synthetic.main.item_location.view.*
 
 
@@ -23,8 +24,13 @@ class LocationListAdapter(val locations:ArrayList<Location>) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         p1: Int
-    ) = LocationViewHolder (LayoutInflater.from(parent.context).inflate(R.layout.item_location,
-        parent, false))
+    ) =
+        LocationViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_location,
+                parent, false
+            )
+        )
 
     override fun getItemCount(): Int {
         return locations.size
