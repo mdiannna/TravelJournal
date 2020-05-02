@@ -9,15 +9,15 @@ import retrofit2.http.*;
 
 interface OpenTripApiInterface {
     @GET("places/bbox")
-//    suspend fun getPlacesByCoordinates(@Query("lon_min") lngMin:Double,
-    fun getPlacesByCoordinates(@Query("lon_min") lngMin:Double,
+    suspend fun getPlacesByCoordinates(@Query("lon_min") lngMin:Double,
+//    fun getPlacesByCoordinates(@Query("lon_min") lngMin:Double,
                                        @Query("lat_min") latMin:Double,
                                        @Query("lon_max") lngMax:Double,
                                        @Query("lat_max") latMax:Double,
                                        @Query("apikey") apikey:String,
                                        @Query("kinds") kinds:String,
-//                                       @Query("format") format:String = "geojson"): OpenTripApiObject
-                                       @Query("format") format:String = "geojson"): Response<OpenTripApiObject>
+                                       @Query("format") format:String = "geojson"): OpenTripApiObject
+//                                       @Query("format") format:String = "geojson"): Response<OpenTripApiObject>
 //    Example request:
 //    http://api.opentripmap.com/0.1/ru/places/xid/W206834774?apikey=API_KEY
 //    http://api.opentripmap.com/0.1/ru/places/xid/N5259791626?apikey=API_KEY

@@ -10,10 +10,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.traveljournal.data.remote.APIServiceImpl
+//import com.example.traveljournal.data.remote.APIServiceImpl
 import com.example.traveljournal.data.models.OpenTripApiFeature
 import com.example.traveljournal.data.models.OpenTripApiObject
-import com.example.traveljournal.data.remote.ApiHelper
+//import com.example.traveljournal.data.remote.ApiHelper
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import com.example.traveljournal.data.remote.Result
@@ -33,33 +33,33 @@ class CreateJournalViewModel : BasicViewModel<CreateJournalNavigator>() {
     val errorMessage: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
-
-    fun getPlacesByCoordinatesFromServer() {
-        val  lat = 46.2
-        val lng = 23.4
-        if (lat == null || lng == null || lat == 0.0|| lng == 0.0) {
-            return
-        }
-
-
-        var lngMin = lng - LOCATION_DELTA
-        var latMin = lat - LOCATION_DELTA
-        var lngMax = lng + LOCATION_DELTA
-        var latMax = lat + LOCATION_DELTA
-        var kinds = "interesting_places"
-
-        viewModelScope.launch {
-            val retrofitObj =
-                ApiHelper.getPlacesByCoordinatesRequest(lngMin, latMin, lngMax, latMax, kinds)
-                Log.d("TEST<COROUTINE", "test coroutine")
-            when (retrofitObj) {
-                is Result.Success -> response.postValue(retrofitObj.data.features[0])
-                is Result.Error -> {
-                    errorMessage.postValue(retrofitObj.exception)
-                }
-            }
-        }
-    }
+//
+//    fun getPlacesByCoordinatesFromServer() {
+//        val  lat = 46.2
+//        val lng = 23.4
+//        if (lat == null || lng == null || lat == 0.0|| lng == 0.0) {
+//            return
+//        }
+//
+//
+//        var lngMin = lng - LOCATION_DELTA
+//        var latMin = lat - LOCATION_DELTA
+//        var lngMax = lng + LOCATION_DELTA
+//        var latMax = lat + LOCATION_DELTA
+//        var kinds = "interesting_places"
+//
+//        viewModelScope.launch {
+//            val retrofitObj =
+//                ApiHelper.getPlacesByCoordinatesRequest(lngMin, latMin, lngMax, latMax, kinds)
+//                Log.d("TEST<COROUTINE", "test coroutine")
+//            when (retrofitObj) {
+//                is Result.Success -> response.postValue(retrofitObj.data.features[0])
+//                is Result.Error -> {
+//                    errorMessage.postValue(retrofitObj.exception)
+//                }
+//            }
+//        }
+//    }
 }
 
 
