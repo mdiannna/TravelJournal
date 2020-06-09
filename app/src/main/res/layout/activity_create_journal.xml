@@ -1,105 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top"
-    android:orientation="vertical"
-    android:background="@color/colorSecondaryLight"
-    >
+    tools:context=".views.CreateJournalActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/coordinatesLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top|center"
-        android:orientation="horizontal"
-        >
-
-    <TextView
-        android:layout_marginRight="10dp"
-        android:id="@+id/latTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:text="Lat: "/>
-
-    <TextView
-        android:id="@+id/lonTextView"
-        android:layout_marginRight="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Long: "
-        android:textColor="@android:color/white"
-        />
-    <Button
-        android:id="@+id/buttonUpdateLocation"
-        android:text="  Update location  "
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    </LinearLayout>
-
-
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/detailsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top|center"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        >
-
-    <ImageView
-        android:id="@+id/placeImage"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:src="@drawable/louvre"
-        android:layout_gravity="top"
-        android:layout_margin="10dp"
-        android:contentDescription="Map"
-        />
-
-    <TextView
-        android:id="@+id/nameTextView"
-        android:textSize="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@android:color/white"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Name of place: "/>
-
-    <TextView
-        android:id="@+id/descriptionTextView"
-        android:background="@android:color/white"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Description of place: "/>
-
-    </LinearLayout>
-    </ScrollView>
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/createJournalLayout"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Journal name:"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:textFontWeight="900"
+            ></TextView>
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text=""
+            android:layout_gravity="center"
+            >
+        </EditText>
+        <Button
+            android:id="@+id/JournalNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:background="@color/colorPrimaryLight"
+            android:textSize="20dp"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff"
+            >
+        </Button>
 
     </LinearLayout>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

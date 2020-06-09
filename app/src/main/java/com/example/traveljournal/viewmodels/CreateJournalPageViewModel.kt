@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.traveljournal.data.models.OpenTripApiFeature
 
-class CreateJournalViewModel : ViewModel() {
+class CreateJournalPageViewModel : ViewModel() {
 
     val response: MutableLiveData<OpenTripApiFeature> by lazy {
         MutableLiveData<OpenTripApiFeature>()

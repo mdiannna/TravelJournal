@@ -11,6 +11,7 @@ import android.widget.*
 import com.example.traveljournal.*
 import com.example.traveljournal.adapters.JournalsGridAdapter
 import com.example.traveljournal.views.CreateJournalActivity
+import com.example.traveljournal.views.CreateJournalPageActivity
 import com.example.traveljournal.views.JournalActivity
 
 class JournalsFragment : Fragment(), View.OnClickListener  {
