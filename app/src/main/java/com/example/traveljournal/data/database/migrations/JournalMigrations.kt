@@ -15,7 +15,7 @@ class JournalMigrations {
     }
 
     fun migrate(applicationContext: Context) {
-        Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").addMigrations(MIGRATION_1_2).build()
+        Room.databaseBuilder(applicationContext, AppDatabase::class.java, "journals_database").addMigrations(MIGRATION_1_2).build()
     }
 
 }

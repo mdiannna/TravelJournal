@@ -8,61 +8,59 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(Journal::class), version = 1, exportSchema = false)
-public abstract class AppDatabase : RoomDatabase() {
+@Database(entities = [Journal::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
+
         abstract fun journalDao(): JournalDao
 
-        private class AppDatabaseCallback(
+        private class JournalDatabaseCallback(
                 private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
 
                 override fun onOpen(db: SupportSQLiteDatabase) {
                         super.onOpen(db)
-                        INSTANCE?.let{ database ->
+                        INSTANCE?.let { database ->
                                 scope.launch {
-                                        populateDatabase(database.journalDao())
+                                        var journalDao = database.journalDao()
+
+                                        // Delete all content here.
+                                        journalDao.deleteAll()
+
+                                        // Add sample words.
+                                        var journal = Journal("Hello")
+                                        journalDao.insertJournal(journal)
+                                        journal = Journal("World!")
+                                        journalDao.insertJournal(journal)
+
+                                        journal = Journal("TODO!")
+                                        journalDao.insertJournal(journal)
                                 }
                         }
-                }
-
-                suspend fun populateDatabase(journalDao: JournalDao) {
-                        journalDao.deleteAll()
-
-                        var journal = Journal("Journal1")
-                        journalDao.insertJournal(journal)
-
                 }
         }
 
         companion object {
-                //Singleton prevents multiple instances off database openint
-                // at the same time
                 @Volatile
                 private var INSTANCE: AppDatabase? = null
 
-                fun getDatabase(context:Context, scope: CoroutineScope): AppDatabase {
-                        val tempInstance = INSTANCE
-                        if (tempInstance!=null) {
-                                return tempInstance
-                        }
-
-                        synchronized(this) {
+                fun getDatabase(
+                        context : Context,
+                        scope: CoroutineScope
+                ): AppDatabase {
+                        // if the INSTANCE is not null, then return it,
+                        // if it is, then create the database
+                        return INSTANCE ?: synchronized(this) {
                                 val instance = Room.databaseBuilder(
                                         context.applicationContext,
                                         AppDatabase::class.java,
                                         "journals_database"
-                                ).addCallback(AppDatabaseCallback(scope)).build()
+                                )
+                                        .addCallback(JournalDatabaseCallback(scope))
+                                        .build()
                                 INSTANCE = instance
-                                return instance
+                                // return instance
+                                instance
                         }
                 }
         }
-
-
 }
-
-//Usage:
-//val db = Room.databaseBuilder(
-//        applicationContext,
-//        AppDatabase::class.java, "database-name"
-//).build()

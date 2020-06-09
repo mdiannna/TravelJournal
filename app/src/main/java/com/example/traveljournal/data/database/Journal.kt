@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
-data class Journal(
+@Entity(tableName="journals")
+class Journal(
     @PrimaryKey
-    @ColumnInfo(name= "name") val name:String?
+    @ColumnInfo(name= "name") val name:String
 )

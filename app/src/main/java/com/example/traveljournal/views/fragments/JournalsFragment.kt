@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+
+import androidx.lifecycle.get
 import com.example.traveljournal.*
 import com.example.traveljournal.adapters.JournalsGridAdapter
 import com.example.traveljournal.viewmodels.JournalViewModel
@@ -33,10 +35,6 @@ class JournalsFragment : Fragment(), View.OnClickListener  {
             message = it.getString(EXTRA_MESSAGE).toString()
         }
 
-        journalViewModel = ViewModelProvider(this).get(JournalViewModel::class.java)
-
-
-
     }
 
     override fun onCreateView(
@@ -59,14 +57,17 @@ class JournalsFragment : Fragment(), View.OnClickListener  {
         }
         gridview.adapter = adapter
 
+//        journalViewModel = ViewModelProviders.of(this).get(JournalViewModel::class.java)
 
-        journalViewModel.allJournals.observe(this, Observer {
-                journals -> journals?.let {
-                if (adapter != null) {
-                    adapter.setJournals(it)
-                }
-            }
-        })
+        journalViewModel = ViewModelProvider(this).get(JournalViewModel::class.java)
+
+//        journalViewModel.allJournals.observe(this, Observer {
+//                journals -> journals?.let {
+//                if (adapter != null) {
+//                    adapter.setJournals(it)
+//                }
+//            }
+//        })
 
         // Create buttons
         var buttonCreateJournal = rootView.findViewById<Button>(R.id.btnCreateJournal)

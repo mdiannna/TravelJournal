@@ -4,11 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.traveljournal.R
-import com.example.traveljournal.viewmodels.CreateJournalViewModel
-import com.example.traveljournal.viewmodels.JournalViewModel
 
 class JournalActivity : AppCompatActivity(), View.OnClickListener  {
     override fun onCreate(savedInstanceState: Bundle?) {

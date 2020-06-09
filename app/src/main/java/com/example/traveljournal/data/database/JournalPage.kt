@@ -5,8 +5,8 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
-data class JournalPage (
+@Entity(tableName="journal_pages")
+class JournalPage (
     @PrimaryKey val id: Int,
     @ColumnInfo(name= "name") val name:String,
     @ColumnInfo(name= "lat") val lat:Double?,
