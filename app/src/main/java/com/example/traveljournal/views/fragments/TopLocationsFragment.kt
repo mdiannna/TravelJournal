@@ -29,6 +29,7 @@ class TopLocationsFragment: Fragment() {
         var recyclerView: RecyclerView = rootView.findViewById(R.id.top_locations_recycler_view)
 
         val viewModel = ViewModelProviders.of(this).get(TopLocationsViewModel::class.java)
+        viewModel.addTopLocations()
 
         viewManager = LinearLayoutManager(getActivity())
         viewAdapter =
