@@ -20,6 +20,9 @@ class TopLocationsViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun addTopLocations() {
+        if (!::locationList.isInitialized) {
+            initializeLocationList()
+        }
         val locations = getTopLocations()
         addLocations(locations)
     }
