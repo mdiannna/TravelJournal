@@ -43,9 +43,21 @@ class LocationsAdapterUnitTest {
         var newLocations = arrayOf(initialLocation, newLocation)
 
         val viewModel = TopLocationsViewModel(application)
-        
+
+        viewModel.initializeLocationList()
         viewModel.addLocations(newLocations)
 
         assertEquals(viewModel.getLocationList(), newLocationList)
     }
+
+    @Test
+    fun addTopLocations_isCorrect() {
+        val viewModel = TopLocationsViewModel(application)
+
+        viewModel.addTopLocations()
+
+        assertNotNull(viewModel.getTopLocations())
+    }
+
+
 }
