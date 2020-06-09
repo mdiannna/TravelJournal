@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.traveljournal.R
+import com.example.traveljournal.viewmodels.CreateJournalViewModel
+import com.example.traveljournal.viewmodels.JournalViewModel
 
 class JournalActivity : AppCompatActivity(), View.OnClickListener  {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_journal)
+
 
         val textView = findViewById<TextView>(R.id.louvreText).apply {
             text = "Louvre is the world's largest art museum and a historic monument" +

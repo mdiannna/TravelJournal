@@ -8,13 +8,19 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.traveljournal.R
+import com.example.traveljournal.data.database.Journal
 
-internal class JournalsGridAdapter internal constructor(context: Context, private val resource:Int,
-                                                        private val itemList:Array<String>?
-        ) : ArrayAdapter<JournalsGridAdapter.ItemHolder>(context, resource) {
+internal class JournalsGridAdapter internal constructor(context: Context, private val resource:Int)
+    : ArrayAdapter<JournalsGridAdapter.ItemHolder>(context, resource) {
+
+    var itemList = emptyList<Journal>()
+
+    private val inflater:LayoutInflater = LayoutInflater.from(context)
+    private var journals = emptyList<Journal>()
+
 
     override fun getCount(): Int {
-        return if(this.itemList != null) this.itemList.size else 0
+        return if(this.itemList != null) this.itemList!!.size else 0
     }
     override fun getView(position:Int, convertView: View?, parent: ViewGroup) : View {
         var convertView = convertView
@@ -30,14 +36,22 @@ internal class JournalsGridAdapter internal constructor(context: Context, privat
             holder = convertView.tag as ItemHolder
         }
 
-        holder.name!!.text=this.itemList!![position]
+        holder.name!!.text= this.itemList!!.get(position).name
         holder.icon!!.setImageResource(R.mipmap.ic_launcher)
 
         return convertView
     }
 
-    internal class ItemHolder {
+    internal class ItemHolder() {
+//        internal class ItemHolder(itemView:View) {
+            //
+//        var name: TextView? = itemView.findViewById(R.id.textView)
         var name: TextView? = null
         var icon: ImageView? = null
+    }
+
+    internal  fun setJournals(journals: List<Journal> ) {
+        this.itemList = journals
+        notifyDataSetChanged()
     }
 }

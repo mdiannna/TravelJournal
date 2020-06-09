@@ -10,7 +10,7 @@ import com.example.traveljournal.data.repositories.JournalRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class JournalViewModel (application: Application) : AndroidViewModel(application) {
+class CreateJournalViewModel (application: Application) : AndroidViewModel(application) {
 
     private val repository: JournalRepository
 

@@ -8,8 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.traveljournal.*
 import com.example.traveljournal.adapters.JournalsGridAdapter
+import com.example.traveljournal.viewmodels.JournalViewModel
 import com.example.traveljournal.views.CreateJournalActivity
 import com.example.traveljournal.views.CreateJournalPageActivity
 import com.example.traveljournal.views.JournalActivity
@@ -17,6 +20,8 @@ import com.example.traveljournal.views.JournalActivity
 class JournalsFragment : Fragment(), View.OnClickListener  {
     // TODO: Rename and change types of parameters
     private var message: String? = null
+    private lateinit var journalViewModel: JournalViewModel
+
     private val itemList:Array<String>
         get() = arrayOf("Louvre", "Stefan cel Mare", "Arcul de Triumf")
 
@@ -27,6 +32,11 @@ class JournalsFragment : Fragment(), View.OnClickListener  {
         arguments?.let {
             message = it.getString(EXTRA_MESSAGE).toString()
         }
+
+        journalViewModel = ViewModelProvider(this).get(JournalViewModel::class.java)
+
+
+
     }
 
     override fun onCreateView(
@@ -43,13 +53,20 @@ class JournalsFragment : Fragment(), View.OnClickListener  {
         val adapter = getActivity()?.let {
             JournalsGridAdapter(
                 it,
-                R.layout.journal_item,
-                itemList
+                R.layout.journal_item
+//                journalViewModel.allJournals()
             )
         }
         gridview.adapter = adapter
 
 
+        journalViewModel.allJournals.observe(this, Observer {
+                journals -> journals?.let {
+                if (adapter != null) {
+                    adapter.setJournals(it)
+                }
+            }
+        })
 
         // Create buttons
         var buttonCreateJournal = rootView.findViewById<Button>(R.id.btnCreateJournal)

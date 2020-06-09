@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Journal(
-    @PrimaryKey val id: Int,
+    @PrimaryKey
     @ColumnInfo(name= "name") val name:String?
 )
