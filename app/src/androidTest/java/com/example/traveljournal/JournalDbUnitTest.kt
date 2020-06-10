@@ -44,7 +44,7 @@ import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 //@RunWith(MockitoJUnitRunner::class)
-class WordDaoTest {
+class JournalDbUnitTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
