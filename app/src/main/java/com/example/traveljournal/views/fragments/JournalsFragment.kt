@@ -61,13 +61,13 @@ class JournalsFragment : Fragment(), View.OnClickListener  {
 
         journalViewModel = ViewModelProvider(this).get(JournalViewModel::class.java)
 
-//        journalViewModel.allJournals.observe(this, Observer {
-//                journals -> journals?.let {
-//                if (adapter != null) {
-//                    adapter.setJournals(it)
-//                }
-//            }
-//        })
+        journalViewModel.allJournals.observe(viewLifecycleOwner, Observer {
+                journals -> journals?.let {
+                if (adapter != null) {
+                    adapter.setJournals(it)
+                }
+            }
+        })
 
         // Create buttons
         var buttonCreateJournal = rootView.findViewById<Button>(R.id.btnCreateJournal)

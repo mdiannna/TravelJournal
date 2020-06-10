@@ -8,19 +8,21 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.lifecycle.ViewModelProvider
 import com.example.traveljournal.R
 import com.example.traveljournal.data.database.Journal
+import com.example.traveljournal.viewmodels.JournalViewModel
 
 class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
 
     private lateinit var editJournalView:EditText
-//    private lateinit var  createJournalViewModel: CreateJournalViewModel
+    private lateinit var  createJournalViewModel: JournalViewModel
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_journal)
 
-//        createJournalViewModel = ViewModelProvider(this).get(CreateJournalViewModel::class.java)
+        createJournalViewModel = ViewModelProvider(this).get(JournalViewModel::class.java)
 
 //        createJournalViewModel.allJournals.observe(this, Observer {
 //            journals -> journals?.let {adapter.setJournals(it)}
@@ -39,23 +41,28 @@ class CreateJournalActivity : AppCompatActivity(), View.OnClickListener  {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.JournalNext -> {
-                val newIntent = Intent()
-                if(TextUtils.isEmpty(editJournalView.text)) {
-                    setResult(Activity.RESULT_CANCELED, newIntent)
-                } else {
-                    val journalName = editJournalView.text.toString()
+//                val newIntent = Intent()
+//                if(TextUtils.isEmpty(editJournalView.text)) {
+//                    setResult(Activity.RESULT_CANCELED, newIntent)
+//                } else {
+//                    val journalName = editJournalView.text.toString()
+//                    val journal = Journal(journalName)
+//
+//                    createJournalViewModel.insert(journal)
+//                    newIntent.putExtra(EXTRA_REPLY, journalName)
+//                    setResult(Activity.RESULT_OK, newIntent)
+//                }
+//
+//                finish()
+
+                // save Data to db using viewModel
+                val journalName = editJournalView.text.toString()
                     val journal = Journal(journalName)
 
-//                    createJournalViewModel.insert(journal)
-                    newIntent.putExtra(EXTRA_REPLY, journalName)
-                    setResult(Activity.RESULT_OK, newIntent)
-                }
+                    createJournalViewModel.insert(journal)
 
-                finish()
-
-                // TODO: save Data to db using viewModel
-              //  val intent = Intent(this, CreateJournalPageActivity::class.java)
-               // startActivity(intent)
+                val intent = Intent(this, CreateJournalPageActivity::class.java)
+                startActivity(intent)
             }
             else -> {
 

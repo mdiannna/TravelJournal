@@ -20,7 +20,7 @@ internal class JournalsGridAdapter internal constructor(context: Context, privat
 
 
     override fun getCount(): Int {
-        return if(this.itemList != null) this.itemList!!.size else 0
+        return if(this.itemList != null) this.itemList.size else 0
     }
     override fun getView(position:Int, convertView: View?, parent: ViewGroup) : View {
         var convertView = convertView
@@ -36,7 +36,7 @@ internal class JournalsGridAdapter internal constructor(context: Context, privat
             holder = convertView.tag as ItemHolder
         }
 
-        holder.name!!.text= this.itemList!!.get(position).name
+        holder.name!!.text= this.itemList.get(position).name
         holder.icon!!.setImageResource(R.mipmap.ic_launcher)
 
         return convertView
