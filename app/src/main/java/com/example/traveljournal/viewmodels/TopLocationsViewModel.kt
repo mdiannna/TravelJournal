@@ -28,7 +28,6 @@ class TopLocationsViewModel(application: Application) : AndroidViewModel(applica
     }
 
 
-
     fun addLocation(newLocationList:ArrayList<Location>, newLocation:Location):ArrayList<Location> {
         newLocationList.add(newLocation)
         return newLocationList
@@ -65,12 +64,5 @@ class TopLocationsViewModel(application: Application) : AndroidViewModel(applica
         for (location in locations) {
             locationList.add(location)
         }
-
-//        locationList = ArrayList<Location>();
-//        locationList.add(loc1)
-//        locationList.add(loc2)
-//        locationList.add(loc3)
-//        locationList.add(loc4)
-//        locationList.add(loc5)
     }
 }

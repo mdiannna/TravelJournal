@@ -22,8 +22,8 @@ public class JournalViewModel(application: Application):AndroidViewModel(applica
     public lateinit var allJournals: LiveData<List<Journal>>
 
     init {
-        val wordsDao = AppDatabase.getDatabase(application, viewModelScope).journalDao()
-        repository = JournalRepository(wordsDao)
+        val journalDao = AppDatabase.getDatabase(application, viewModelScope).journalDao()
+        repository = JournalRepository(journalDao)
         allJournals = repository.allJournals
     }
 

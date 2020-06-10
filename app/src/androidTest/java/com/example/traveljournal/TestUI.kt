@@ -30,7 +30,6 @@ class TestUI {
 
     @Before
     fun initValidString() {
-        // Specify a valid string.
         stringToBetyped = "Espresso"
     }
 

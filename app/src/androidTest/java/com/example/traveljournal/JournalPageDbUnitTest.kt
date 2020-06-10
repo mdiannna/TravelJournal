@@ -99,7 +99,6 @@ class JournalPageDbUnitTest {
     @Throws(Exception::class)
     fun deleteAll() {
         runBlocking {
-
             val journalPage = JournalPage(2, "Page2", 22.2, 45.3, "test", "-", 1)
             journalPageDao.insertJournalPage(journalPage)
             val journalPage2 = JournalPage(3, "Page3", 22.2, 45.3, "test", "-", 1)
