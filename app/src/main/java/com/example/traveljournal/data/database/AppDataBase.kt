@@ -27,12 +27,12 @@ abstract class AppDatabase : RoomDatabase() {
                                         journalDao.deleteAll()
 
                                         // Add sample words.
-                                        var journal = Journal("Hello")
+                                        var journal = Journal("Journal From Paris")
                                         journalDao.insertJournal(journal)
-                                        journal = Journal("World!")
+                                        journal = Journal("UK Journal")
                                         journalDao.insertJournal(journal)
 
-                                        journal = Journal("TODO!")
+                                        journal = Journal("Journal Moldova")
                                         journalDao.insertJournal(journal)
                                 }
                         }

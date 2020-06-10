@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
+    android:padding="@dimen/txv_padding"
+
     >
 
     <ImageView
@@ -19,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:padding="@dimen/txv_padding"
         android:textColor="@android:color/black"/>
 
 </LinearLayout>

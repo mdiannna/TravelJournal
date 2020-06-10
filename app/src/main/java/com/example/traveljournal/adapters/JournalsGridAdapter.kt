@@ -37,15 +37,12 @@ internal class JournalsGridAdapter internal constructor(context: Context, privat
         }
 
         holder.name!!.text= this.itemList.get(position).name
-        holder.icon!!.setImageResource(R.mipmap.ic_launcher)
+        holder.icon!!.setImageResource(R.drawable.traveljournal5)
 
         return convertView
     }
 
     internal class ItemHolder() {
-//        internal class ItemHolder(itemView:View) {
-            //
-//        var name: TextView? = itemView.findViewById(R.id.textView)
         var name: TextView? = null
         var icon: ImageView? = null
     }
