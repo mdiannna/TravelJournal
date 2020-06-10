@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Journal::class, JournalPage::class], version = 1)
+@Database(entities = [Journal::class, JournalPage::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
         abstract fun journalDao(): JournalDao
@@ -60,6 +60,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         "journals_database"
                                 )
                                         .addCallback(JournalDatabaseCallback(scope))
+                                        .fallbackToDestructiveMigration() // lose all data before migration
                                         .build()
                                 INSTANCE = instance
                                 // return instance
