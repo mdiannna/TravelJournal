@@ -8,10 +8,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Journal::class], version = 1)
+@Database(entities = [Journal::class, JournalPage::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
         abstract fun journalDao(): JournalDao
+        abstract fun journalPageDao(): JournalPageDao
 
         private class JournalDatabaseCallback(
                 private val scope: CoroutineScope
@@ -22,9 +23,12 @@ abstract class AppDatabase : RoomDatabase() {
                         INSTANCE?.let { database ->
                                 scope.launch {
                                         var journalDao = database.journalDao()
+                                        var journalPageDao = database.journalPageDao()
+
 
                                         // Delete all content here.
                                         journalDao.deleteAll()
+                                        journalPageDao.deleteAll()
 
                                         // Add sample words.
                                         var journal = Journal("Journal From Paris")

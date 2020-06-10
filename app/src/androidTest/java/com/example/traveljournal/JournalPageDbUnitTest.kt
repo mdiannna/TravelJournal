@@ -22,8 +22,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.traveljournal.data.database.AppDatabase
-import com.example.traveljournal.data.database.Journal
-import com.example.traveljournal.data.database.JournalDao
+import com.example.traveljournal.data.database.JournalPage
+import com.example.traveljournal.data.database.JournalPageDao
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -44,12 +44,12 @@ import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 //@RunWith(MockitoJUnitRunner::class)
-class JournalDbUnitTest {
+class JournalPageDbUnitTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var journalDao: JournalDao
+    private lateinit var journalPageDao: JournalPageDao
     private lateinit var db: AppDatabase
 
     @Before
@@ -61,7 +61,7 @@ class JournalDbUnitTest {
             // Allowing main thread queries, just for testing.
             .allowMainThreadQueries()
             .build()
-        journalDao = db.journalDao()
+        journalPageDao = db.journalPageDao()
     }
 
     @After
@@ -72,12 +72,12 @@ class JournalDbUnitTest {
 
     @Test
     @Throws(Exception::class)
-    fun insertAndGetJournal() {
+    fun insertAndGetJournalPage() {
         runBlocking {
-            val journal = Journal("word")
-            journalDao.insertJournal(journal)
-            val allJournals = journalDao.getAll().waitForValue()
-            assertEquals(allJournals[0].name, journal.name)
+            val journalPage = JournalPage(1, "Page1", 23.2, 45.3, "test", "-", 1)
+            journalPageDao.insertJournalPage(journalPage)
+            val allJournalPages = journalPageDao.getAll().waitForValue()
+            assertEquals(allJournalPages[0].name, journalPage.name)
         }
     }
 
@@ -85,13 +85,13 @@ class JournalDbUnitTest {
     @Throws(Exception::class)
     fun getAllJournals() {
         runBlocking {
-            val journal = Journal("aaa")
-            journalDao.insertJournal(journal)
-            val journal2 = Journal("bbb")
-            journalDao.insertJournal(journal2)
-            val allJournals = journalDao.getAll().waitForValue()
-            assertEquals(allJournals[0].name, journal.name)
-            assertEquals(allJournals[1].name, journal2.name)
+            val journalPage = JournalPage(2, "Page2", 22.2, 45.3, "test", "-", 1)
+            journalPageDao.insertJournalPage(journalPage)
+            val journalPage2 = JournalPage(3, "Page3", 22.2, 45.3, "test", "-", 1)
+            journalPageDao.insertJournalPage(journalPage2)
+            val allJournalPages = journalPageDao.getAll().waitForValue()
+            assertEquals(allJournalPages[0].name, journalPage.name)
+            assertEquals(allJournalPages[1].name, journalPage2.name)
         }
     }
 
@@ -100,13 +100,13 @@ class JournalDbUnitTest {
     fun deleteAll() {
         runBlocking {
 
-        val journal = Journal("Journal")
-        journalDao.insertJournal(journal)
-        val journal2 = Journal("Journal2")
-        journalDao.insertJournal(journal2)
-        journalDao.deleteAll()
-        val allJournals = journalDao.getAll().waitForValue()
-        assertTrue(allJournals.isEmpty())
+            val journalPage = JournalPage(2, "Page2", 22.2, 45.3, "test", "-", 1)
+            journalPageDao.insertJournalPage(journalPage)
+            val journalPage2 = JournalPage(3, "Page3", 22.2, 45.3, "test", "-", 1)
+            journalPageDao.insertJournalPage(journalPage2)
+            journalPageDao.deleteAll()
+            val allJournalPages = journalPageDao.getAll().waitForValue()
+            assertTrue(allJournalPages.isEmpty())
         }
     }
 }
